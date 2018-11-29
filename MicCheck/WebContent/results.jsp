@@ -7,6 +7,10 @@
 	<title>Results Page</title>
 </head>
 <body>
-
+	<%
+	//Getting the instrument type passed by pressing the button from the dropdown menu
+	String result = request.getParameter("search");
+	out.println("<h1>" + result + "</h1>");
+	%>
 </body>
 </html>
