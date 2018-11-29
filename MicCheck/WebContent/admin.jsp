@@ -25,78 +25,11 @@
 <body>
 	
 	<!-- Admin Page HTML -->
-	<div class="container margin">
-		<div class="row">
-			<div class="col-md-4"></div>
-			<div class="col-md-10 text-center box text">
-				<a class="logo" href="homepage.jsp">MicCheck</a>
-				<h3>Login Page</h3>
-				<br>
-				<form action="login.jsp" method="get">
-	  				<div class="form-group size labelAlign">
-	    				<label for="emailInput">Email Address: </label>
-	    				<input type="email" class="form-control" id="emailInput" name="emailInput" required>
-	 				</div>
-	  				<div class="form-group size labelAlign">
-			    		<label for="passInput">Password: </label>
-			    		<input type="password" class="form-control" id="passInput" name="passInput" required>
-			  		</div>
-			  		<button type="submit" class="btn btn-primary">Log In</button>
-				</form>
-				<br>
-				<a style="color: white" href="signup.jsp">Click here to sign up.</a>
-			</div>
-		</div>
-	</div>
+	<!-- TODO -->
 
 	<%
-
-	// Initializations:
-	String email = request.getParameter("emailInput");
-	String password = request.getParameter("passInput");
-	boolean emailCheck = false;
-	boolean passCheck = false;
-	int i = 0;
-	String serverPass = null;
 	
-	// Preparing SQL Connection:
-	try { Class.forName("com.microsoft.sqlserver.jdbc.SQLServerDriver"); } catch(java.lang.ClassNotFoundException e) { out.println("ClassNotFoundException: " + e); }
-	String url = "jdbc:sqlserver://sql04.ok.ubc.ca:1433;DatabaseName=db_ncukiert;";
-	String uid = "ncukiert";
-	String pw = "41776162";
-	Connection con = DriverManager.getConnection(url, uid, pw);
-	Statement stmt = con.createStatement();
-	ResultSet rSet = stmt.executeQuery("SELECT email, password FROM Customers WHERE email = '" + email + "'");
-	
-	// Email & Password Validation:
-	if(email != null) {
-		while(rSet.next()) {
-			serverPass = rSet.getString(2);
-			emailCheck = true;
-			i++;
-		}
-		if(i == 0) {
-			%><script>emailAlert();</script><%
-		}
-	}
-	
-	// Password validation:
-	if(password != null && emailCheck) {
-		if(password.equals(serverPass)) {
-			passCheck = true;
-		} else {
-			%><script>passAlert();</script><%
-		}
-	}
-	
-	// Logging user in and redirecting to home page:
-	if(emailCheck && passCheck) {
-		response.setStatus(response.SC_MOVED_TEMPORARILY);
-		response.setHeader("Location", "homepage.jsp?email=" + email);
-	}
-	
-	// Closing Connection:
-	con.close();
+	//TODO
 	
 	%>
 	
