@@ -1,0 +1,134 @@
+body {
+	padding-top: 40px;
+	/*background: orange;*/
+}
+.form-control {
+	width: 400px;
+}
+
+.form-group {
+	width: 600px;
+}
+
+.navbar-default .navbar-title {
+	color: white;
+	font-family: 'Lobster', cursive; 
+	font-size: 35px;
+	text-shadow: 1px 1px #ff0000;
+}
+
+.navbar-default {
+	background: #75472d;
+}
+
+.dropdown-toggle {
+	font-family: 'Cairo', sans-serif;
+	font-size: 18px;
+	font-weight: bold;
+	color: white !important;
+}
+
+.dropdown-menu {
+	font-family: 'Cairo', sans-serif;
+}
+
+.center-picture {
+	background: url("john-matychuk-491429-unsplash.jpg");
+	background-size: cover;
+	height: 400px;
+}
+
+.jumbotron .micCheck-title {
+	font-family: 'Lobster', cursive;
+	font-size: 100px;
+	color: white;
+	text-align: center;
+	text-shadow: 2px 2px #ff0000;
+}
+
+.dropdown-submenu {
+    position: relative;
+}
+
+.dropdown-submenu>.dropdown-menu {
+    top: 0;
+    left: 100%;
+    margin-top: -6px;
+    margin-left: -1px;
+    -webkit-border-radius: 0 6px 6px 6px;
+    -moz-border-radius: 0 6px 6px;
+    border-radius: 0 6px 6px 6px;
+}
+
+.dropdown-submenu:hover>.dropdown-menu {
+    display: block;
+}
+
+.dropdown-submenu>a:after {
+    display: block;
+    content: " ";
+    float: right;
+    width: 0;
+    height: 0;
+    border-color: transparent;
+    border-style: solid;
+    border-width: 5px 0 5px 5px;
+    border-left-color: #ccc;
+    margin-top: 5px;
+}
+
+.dropdown-submenu:hover>a:after {
+    border-left-color: #fff;
+}
+
+.dropdown-submenu.pull-left {
+    float: none;
+}
+
+.dropdown-submenu.pull-left>.dropdown-menu {
+    left: -100%;
+    margin-left: 10px;
+    -webkit-border-radius: 6px 0 6px 6px;
+    -moz-border-radius: 6px 0 6px 6px;
+    border-radius: 6px 0 6px 6px;
+}
+
+/*https://bootsnipp.com/snippets/featured/multi-level-dropdown-menu-bs3*/
+
+.navbar-title {
+	color: #75472d;
+}
+
+.submit-btn {
+	font-family: "Cairo", sans-serif;
+	height: 40px;
+	font-weight: bold;
+	font-size: 16px;
+}
+
+.navbar-collapse .navbar-nav>li>a {
+	color: white;
+	font-weight: bold;
+	font-size: 15px;
+	font-family: "Cairo", sans-serif;
+}
+
+.thumbnail_1 {
+	background: url("https://images.unsplash.com/photo-1508081444780-e2ea2f0b4754?ixlib=rb-0.3.5&ixid=eyJhcHBfaWQiOjEyMDd9&s=a5b29116c39c3fbb8d88824f98121871&auto=format&fit=crop&w=1548&q=80");
+	background-color: #414141;
+	background-size: cover;
+	height: 175px;
+
+	text-align: center;
+	display: flex;
+  	justify-content: center;
+  	flex-direction: column;
+
+	font-weight: bold;
+	font-family: "Cairo", sans-serif;
+	color: white;
+	font-size: 20px;
+	position: relative;
+}
+
+
