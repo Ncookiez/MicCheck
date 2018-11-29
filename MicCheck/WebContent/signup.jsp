@@ -26,7 +26,7 @@
 <body>
 
 	<!-- SignUp Box -->
-	<div class="container margin"> 
+	<div class="container margin">
 		<div class="row">
 			<div class="col-md-4"></div>
 			<div class="col-md-4 text-center box text">
