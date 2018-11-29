@@ -15,9 +15,9 @@ public class LoadData {
 	public static void loadData() throws Exception {
 		
 		// Creating connection to database:
-		String url = "jdbc:sqlserver://sql04.ok.ubc.ca:1433;DatabaseName=<USERNAME>";
-		String uid = "<USERNAME>";
-		String pw = "<ID>";
+		String url = "jdbc:sqlserver://sql04.ok.ubc.ca:1433;DatabaseName=db_trichard";
+		String uid = "trichard";
+		String pw = "27307164";
 		System.out.println("Connecting to database.");
 		Connection con = DriverManager.getConnection(url, uid, pw);
 		
@@ -42,8 +42,10 @@ public class LoadData {
 	            }
 	        }
 	        scanner.close();
+	        con.close();
 	    } catch(Exception e) {
 	        System.out.println(e);
 	    }
+	    
 	}
 }
