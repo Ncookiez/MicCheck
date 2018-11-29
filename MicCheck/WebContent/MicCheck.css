@@ -11,6 +11,7 @@
 
 .navbar-default {
 	background: #75472d;
+	border: 0px;
 }
 
 .dropdown-toggle {
@@ -123,6 +124,7 @@
 	background-color: #414141;
 	background-size: cover;
 	height: 175px;
+	border: 1px solid #021a40;
 }
 
 .thumbnail_2 {
@@ -130,6 +132,7 @@
 	background-color: #414141;
 	background-size: cover;
 	height: 175px;
+	border: 1px solid #021a40;
 }
 
 .thumbnail_3 {
@@ -137,6 +140,7 @@
 	background-color: #414141;
 	background-size: cover;
 	height: 175px;
+	border: 1px solid #021a40;
 }
 
 .thumbnail_4 {
@@ -144,6 +148,7 @@
 	background-color: #414141;
 	background-size: cover;
 	height: 175px;
+	border: 1px solid #021a40;
 }
 
 .thumbnail_5 {
@@ -151,6 +156,7 @@
 	background-color: #414141;
 	background-size: cover;
 	height: 175px;
+	border: 1px solid #021a40;
 }
 
 .thumbnail_6 {
@@ -158,6 +164,7 @@
 	background-color: #414141;
 	background-size: cover;
 	height: 175px;
+	border: 1px solid #021a40;
 }
 
 .thumbnail_7 {
@@ -165,6 +172,12 @@
 	background-color: #414141;
 	background-size: cover;
 	height: 175px;
+	border: 1px solid #021a40;
 }
+
+.jumbotron-div {
+	padding-top: 85px;
+}
+
 
 
