@@ -7,10 +7,9 @@
 	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 	<title>Sign Up Page</title>
 	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
-	
-	<style>
-		/* TODO */
-	</style>
+	<link rel="stylesheet" type="text/css" href="MicCheck.css">
+	<link rel="stylesheet" type="text/css" href="NCss.css">
+	<link href="https://fonts.googleapis.com/css?family=Cairo|Lobster" rel="stylesheet">
 	
 	<script>
 		function emailAlert() { alert("Please input a unique email address."); }
@@ -26,43 +25,51 @@
 </head>
 <body>
 
-	<h1>Sign Up Page</h1>
-	
-	<div class="container">
-		<form action="signup.jsp" method="get">
-	  		<div class="form-group">
-	    		<label for="emailInput">Email Address: </label>
-	    		<input type="email" class="form-control" id="emailInput" name="emailInput" required>
-	 		</div>
-	  		<div class="form-group">
-	    		<label for="passInput">Password: </label>
-	    		<input type="password" class="form-control" id="passInput" name="passInput" required>
-	  		</div>
-	  		<div class="form-group">
-	    		<label for="nameInput">Name: </label>
-	    		<input type="text" class="form-control" id="nameInput" name="nameInput" required>
-	  		</div>
-	  		<div class="form-group">
-	  			<h3>Shipping Address:</h3> 
-	    		<label for="sStreetInput">Street: </label>
-	    		<input type="text" class="form-control" id="sStreetInput" name="sStreetInput" required>
-	    		<label for="sCityInput">City: </label>
-	    		<input type="text" class="form-control" id="sCityInput" name="sCityInput" required>
-	    		<label for="sProvInput">Province: </label>
-	    		<input type="text" class="form-control" id="sProvInput" name="sProvInput" required>
-	  		</div>
-	  		<div class="form-group">
-	  			<h3>Billing Address:</h3> 
-	    		<label for="bStreetInput">Street: </label>
-	    		<input type="text" class="form-control" id="bStreetInput" name="bStreetInput" required>
-	    		<label for="bCityInput">City: </label>
-	    		<input type="text" class="form-control" id="bCityInput" name="bCityInput" required>
-	    		<label for="bProvInput">Province: </label>
-	    		<input type="text" class="form-control" id="bProvInput" name="bProvInput" required>
-	  		</div>
-	  		<button type="submit" class="btn btn-primary">Sign Up</button>
-		</form>
-		<a href="login.jsp">Already have an account? Click here to login.</a>
+	<!-- SignUp Box -->
+	<div class="container margin"> 
+		<div class="row">
+			<div class="col-md-4"></div>
+			<div class="col-md-4 text-center box text">
+				<a class="logo" href="homepage.jsp">MicCheck</a>
+				<h3>Sign Up Page</h3>
+				<br>
+				<form action="signup.jsp" method="get">
+	  				<div class="form-group size labelAlign">
+	    				<label for="emailInput">Email Address: </label>
+			    		<input type="email" class="form-control" id="emailInput" name="emailInput" required>
+			 		</div>
+			  		<div class="form-group size labelAlign">
+			    		<label for="passInput">Password: </label>
+			    		<input type="password" class="form-control" id="passInput" name="passInput" required>
+			  		</div>
+			  		<div class="form-group size labelAlign">
+			    		<label for="nameInput">Name: </label>
+			    		<input type="text" class="form-control" id="nameInput" name="nameInput" required>
+			  		</div>
+			  		<div class="form-group size labelAlign">
+			  			<h3>Shipping Address:</h3> 
+			    		<label for="sStreetInput">Street: </label>
+			    		<input type="text" class="form-control" id="sStreetInput" name="sStreetInput" required>
+			    		<label for="sCityInput">City: </label>
+			    		<input type="text" class="form-control" id="sCityInput" name="sCityInput" required>
+			    		<label for="sProvInput">Province: </label>
+			    		<input type="text" class="form-control" id="sProvInput" name="sProvInput" required>
+			  		</div>
+			  		<div class="form-group size labelAlign">
+			  			<h3>Billing Address:</h3> 
+			    		<label for="bStreetInput">Street: </label>
+			    		<input type="text" class="form-control" id="bStreetInput" name="bStreetInput" required>
+			    		<label for="bCityInput">City: </label>
+			    		<input type="text" class="form-control" id="bCityInput" name="bCityInput" required>
+			    		<label for="bProvInput">Province: </label>
+			    		<input type="text" class="form-control" id="bProvInput" name="bProvInput" required>
+			  		</div>
+			  		<button type="submit" class="btn btn-primary">Sign Up</button>
+				</form>
+				<br>
+				<a style="color: white" href="login.jsp">Already have an account? Click here to login.</a>
+			</div>
+		</div>
 	</div>
 
 	<%

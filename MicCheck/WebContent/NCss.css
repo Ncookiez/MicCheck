@@ -1,0 +1,27 @@
+.logo {
+			color: white;
+			font-family: 'Lobster', cursive; 
+			font-size: 35px;
+			text-shadow: 1px 1px #ff0000;
+		}
+		.box {
+			border-top: 1px solid black;
+			border-left: 1px solid black;
+			border-right: 1px solid black;
+			background: #75472d;
+			padding-bottom: 15px;
+		}
+		.text {
+			font-family: 'Cairo', sans-serif;
+			color: white;
+		}
+		.margin {
+			margin-top: 80px;
+		}
+		.size {
+			width: 80%;
+			margin-left: 35px;
+		}
+		.labelAlign {
+			text-align: left;
+		}
