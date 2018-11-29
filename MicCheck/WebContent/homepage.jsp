@@ -12,7 +12,10 @@
 </head>
 <body>
 	
-	<nav class="navbar navbar-default">
+	<%
+	String email = request.getParameter("email");
+	%>
+	<nav class="navbar navbar-default navbar-fixed-top">
 	  <div class="container-fluid">
 	    <!-- Brand and toggle get grouped for better mobile display -->
 	    <div class="navbar-header">
@@ -22,7 +25,10 @@
 	        <span class="icon-bar"></span>
 	        <span class="icon-bar"></span>
 	      </button>
-	      <a class="navbar-brand navbar-title" href="homepage.jsp">MicCheck</a>
+	      <% 
+	      out.println("<a class='navbar-brand navbar-title' href='homepage.jsp?email=" + email + "'>MicCheck</a>");
+	      %>
+	      
 	    </div>
 
 	    <!-- Collect the nav links, forms, and other content for toggling -->
@@ -36,7 +42,7 @@
 	            <li><a href="results.jsp?search=Keyboard">Keyboard</a></li>
 	            <li><a href="results.jsp?search=Percussion">Percussion</a></li>
 	            <li class="dropdown-submenu">
-	            	<a href="#">Orchestral</a>
+	            	<a>Orchestral</a>
 	            	<ul class="dropdown-menu">
 	            		<li><a href="results.jsp?search=Brass">Brass</a></li>
 	            		<li><a href="results.jsp?search=Strings">Strings</a></li>
@@ -55,9 +61,9 @@
 	      <ul class="nav navbar-nav navbar-right">
 	      	<li><a href="shoppingcart.jsp"><span class="glyphicon glyphicon-shopping-cart" aria-hidden="true"></span> Cart </a></li>
 	        <%
-			String email = null;
+			email = null;
 	        email = request.getParameter("email");	        
-			if(email == null) {
+			if(email == null || email.equals("null")) {
 				out.println("<li><a href='signup.jsp'> Sign Up </a></li>");
 				out.println("<li><a href='login.jsp'><span class='glyphicon glyphicon-user' aria-hidden='true'></span> Log in </a></li>");
 			}
@@ -89,7 +95,7 @@
 	  </div><!-- /.container-fluid -->
 	</nav>
 
-	<div class="container">
+	<div class="container jumbotron-div">
 		<div class="jumbotron center-picture">
   			<h1 class="micCheck-title" type="text">MicCheck</h1>
 		</div>
