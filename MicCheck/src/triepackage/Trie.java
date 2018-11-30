@@ -4,6 +4,11 @@ import java.io.BufferedReader;
 import java.io.FileOutputStream;
 import java.io.FileReader;
 import java.io.IOException;
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashMap;
@@ -62,6 +67,53 @@ public class Trie {
 		}catch(IOException e){
 			e.printStackTrace();
 		}
+	}
+	
+	String strip(String str){
+		if(str==null) return "";
+		str = str.toLowerCase();
+		char[] punctuation = {',', '.', '/', '-', '&', '!', '?', '_'};
+		for(int c = 0; c < str.length(); c++){
+			//Replace punctuation
+			for(char punct : punctuation){
+				str = str.replace(punct, ' ');
+			}
+		}
+		return str;
+	}
+	
+	public void addProduct(int pID) throws SQLException{
+		// Creating connection to database:
+		String url = "jdbc:sqlserver://sql04.ok.ubc.ca:1433;DatabaseName=db_trichard";
+		String uid = "trichard";
+		String pw = "27307164";
+		Connection con = DriverManager.getConnection(url, uid, pw);
+		
+		try{
+			String sql = "SELECT title, category, condition, brand, year, tags FROM Instrument WHERE pID = ?";
+			PreparedStatement pstmt = con.prepareStatement(sql);
+			pstmt.setInt(1, pID);
+			ResultSet rst = pstmt.executeQuery();
+			while(rst.next()){
+				String[] title = this.strip(rst.getString(2)).split(" ");
+				String[] cat = this.strip(rst.getString(3)).split(" ");
+				String[] brand = this.strip(rst.getString(5)).split(" ");
+				String[] tags = this.strip(rst.getString(7)).split(" ");
+				
+				for(String str : title) this.add(str, pID);
+				for(String str : cat) this.add(str, pID);
+				for(String str : brand) this.add(str, pID);
+				for(String str : tags) this.add(str, pID);
+				
+				int cond = rst.getInt(4);
+				this.add((cond == 1 ? "new" : "used"), pID);
+				int year = rst.getInt(6);
+				this.add(""+year, pID);
+			}
+		}catch(Exception e){
+			e.printStackTrace();
+		}
+		con.close();
 	}
 	
 	public void add(String str, int id) {
