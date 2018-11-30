@@ -59,8 +59,8 @@
 	%>
 	
 	<!-- Admin Page -->
-	<div class="container" style="padding-top: 85px">
-		<div class="row">
+	<div class="container main" style="padding-top: 85px">
+		<div class="row textAdmin">
 		
 			<!-- Seller Info -->
 			<div class="col-md-6">
@@ -74,8 +74,12 @@
 	 				<div class="form-group size labelAlign">
 	    				<label for="streetInput">Street: </label>
 	    				<input type="text" class="form-control" id="streetInput" name="streetInput" value="<% out.print(street); %>" required>
+	    			</div>
+	    			<div class="form-group size labelAlign">
 	    				<label for="cityInput">City: </label>
 	    				<input type="text" class="form-control" id="cityInput" name="cityInput" value="<% out.print(city); %>" required>
+	    			</div>
+	    			<div class="form-group size labelAlign">
 	    				<label for="provinceInput">Province: </label>
 	    				<input type="text" class="form-control" id="provinceInput" name="provinceInput" value="<% out.print(province); %>" required>
 	 				</div>
@@ -98,10 +102,11 @@
 			
 			<!-- Customer/Order Info -->
 			<div class="col-md-6 text-center">
-				<h3>Number of Sales: <% out.print(sNum); %></h3>
-				<h3>Total Revenue: $<% out.print(money); %></h3>
+				<h3><strong>Number of Sales:</strong><br> <% out.print(sNum); %></h3>
+				<h3><strong>Total Revenue:</strong><br> $<% out.print(money); %></h3>
 				<br>
-				<h3>List of Customers:</h3>
+				<h4><strong>List of Customers:</strong></h4>
+				<br>
 				<% for(String c: customers) { out.print("<p>" + c + "</p>"); } %>
 			</div>
 		</div>
@@ -118,10 +123,13 @@
 		%>
 		
 		<!-- Product List -->
-		<div class="row">
+		<div class="row textAdmin">
 			<div class="col-md-12 text-center">
+				<hr>
 				<h3>List of Products:</h3>
-				<% for(String p: products) { out.print("<a href=\"adminItem.jsp?sid=" + sid + "&pid=" + productIds.get(x++) + "\" class=\"btn btn-info\" role=\"button\">" + p + "</a>"); } %>
+				<% for(String p: products) { out.print("<a href=\"adminItem.jsp?sid=" + sid + "&pid=" + productIds.get(x++) + "\" class=\"btn-sm btn-primary\" role=\"button\">" + p + "</a><br><br>"); } %>
+				<hr>
+				<a href="adminAdd.jsp?sid=<% out.print(sid); %>" class="btn btn-success" role="button">Add Product</a>
 			</div>
 		</div>
 	</div>

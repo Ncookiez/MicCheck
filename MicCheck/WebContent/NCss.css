@@ -25,3 +25,9 @@
 .labelAlign {
 	text-align: left;
 }
+.main {
+	padding-bottom: 35px;
+}
+.textAdmin {
+	font-family: 'Cairo', sans-serif;
+}
