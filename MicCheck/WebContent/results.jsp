@@ -224,7 +224,7 @@
 				String imgName = "Images/instrument"+prodID+".jpg";
 				String image = "<div class='imageBack'><object data='Image/instrument1.png' type='image/jpg'><img src='"+imgName+"'/></object></div>";
 				//"<a href='item.jsp?pID="+prodID+"&email="+email+"'>View Item</a>";
-				String line = "<tr onclick="+link+"><td>"+image+"</td><td>"+prodSearch+"</td><td>"+catSearch+"</td><td>"+ (condSearch.charAt(0)=='1' ? "New" : "Used") +"</td><td>"+currFormat.format(price)+"</td></tr>";
+				String line = "<tr onclick="+link+"><td>"+image+"</td><td><h4>"+prodSearch+"</h4></td><td>"+catSearch+"</td><td>"+ (condSearch.charAt(0)=='1' ? "New" : "Used") +"</td><td><strong>"+currFormat.format(price)+"</strong></td></tr>";
 				if(idOrder != null) results[idOrder.get(prodID)] = line;
 				else contents+=line+"\n";
 				numLines++;
