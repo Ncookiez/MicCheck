@@ -16,12 +16,26 @@
 	<h1>Shopping Cart</h1>
 	
 	<%
+	
+	int addingToCart = Integer.parseInt(request.getParameter("addingToCart"));
 	String email = request.getParameter("email");
 	String pID = request.getParameter("pID");
 	String sessionID = session.getId();
 // Get the current list of products
 @SuppressWarnings({"unchecked"})
+ArrayList<Object> previousProduct = (ArrayList<Object>)session.getAttribute("currentProduct");
 HashMap<String, ArrayList<Object>> productList = (HashMap<String, ArrayList<Object>>) session.getAttribute("productList");
+if (addingToCart == 1) {
+	if (productList.containsKey(pID))
+	{	previousProduct = (ArrayList<Object>) productList.get(pID);
+		int curAmount = ((Integer) previousProduct.get(3)).intValue();
+		previousProduct.set(3, new Integer(curAmount+1));
+	}
+	else
+		productList.put(pID,previousProduct);
+	session.setAttribute("productList", productList);
+}
+
 
 String url = "jdbc:sqlserver://sql04.ok.ubc.ca:1433;DatabaseName=db_hmehain;";
 String uid = "hmehain";
@@ -30,6 +44,7 @@ String pw = "87189106";
 if (productList == null)
 {	out.println("<H1>Your shopping cart is empty!</H1>");
 	productList = new HashMap<String, ArrayList<Object>>();
+	session.setAttribute("productList", productList);
 }
 else
 {

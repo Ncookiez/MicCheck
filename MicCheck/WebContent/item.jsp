@@ -20,11 +20,6 @@ String email = request.getParameter("email");
 String productID;
 out.println("<a href=\"item.jsp?pID="+productID+"\">Go to item page: </a>");
 */
-HashMap<String, ArrayList<Object>> productList = (HashMap<String, ArrayList<Object>>) session.getAttribute("productList");
-
-if (productList == null) {	// No products currently in list.  Create a list.
-	productList = new HashMap<String, ArrayList<Object>>();
-}
 
 try
 {	// Load driver class
@@ -70,7 +65,8 @@ try (Connection con = DriverManager.getConnection(url, uid, pw); Statement stmt 
 		}
 		
 		out.println("<h2>"+title+"</h2>");
-		out.println("<img src=\"Images/guitar.png\" alt=\""+title+"\"></img>");
+		String imgName = "Images/instrument"+pID+".jpg";
+		out.println("<img src="+imgName+" alt=\""+title+"\"></img>");
 		out.println("<br /><h3>"+description+"</h3>");
 		out.println("Category: " + category);
 		out.println("<br />Seller: <a href=\"seller.jsp?sID="+sID+"\">"+seller+"</a>");
@@ -80,25 +76,17 @@ try (Connection con = DriverManager.getConnection(url, uid, pw); Statement stmt 
 		out.println("<br />Year: " + year);
 		if (tags != null) 
 			out.println("<br />Tags: " + tags);	// Have not done tags yet
-		out.println("<br /><a href=\"shoppingcart.jsp?pID="+pID+"&email="+email+"\">Add to Cart</a>");
+		out.println("<br /><a href=\"shoppingcart.jsp?pID="+pID+"&email="+email+"&addingToCart=1\">Add to Cart</a>"); // 1 is true
+		out.println("<br /><a href=\"shoppingcart.jsp?pID="+pID+"&email="+email+"&addingToCart=0\">Go to Cart</a>"); // 0 is false
 		
 		// Store product information in an ArrayList
-		ArrayList<Object> product = new ArrayList<Object>();
-		product.add(pID);
-		product.add(title);
-		product.add(price);
-		product.add(new Integer(1)); // quantity
+		ArrayList<Object> currentProduct = new ArrayList<Object>();
+		currentProduct.add(pID);
+		currentProduct.add(title);
+		currentProduct.add(price);
+		currentProduct.add(new Integer(1)); // quantity
 		
-		// Update quantity if add same item to order again
-		if (productList.containsKey(pID))
-		{	product = (ArrayList<Object>) productList.get(pID);
-			int curAmount = ((Integer) product.get(3)).intValue();
-			product.set(3, new Integer(curAmount+1));
-		}
-		else
-			productList.put(pID,product);
-
-		session.setAttribute("productList", productList);
+		session.setAttribute("currentProduct", currentProduct);
 		
 	}
 	
