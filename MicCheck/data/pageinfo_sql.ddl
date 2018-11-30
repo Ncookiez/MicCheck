@@ -43,12 +43,11 @@ CREATE TABLE Instrument (
 );
 
 CREATE TABLE Purchase (
-	orderNum		INT NOT NULL,
+	orderNum		INT NOT NULL IDENTITY PRIMARY KEY,
 	totalPrice		DECIMAL(9,2),
 	expectedTime	DATE,
 	dateOrdered		DATE,
 	email			VARCHAR(30),
-	PRIMARY KEY (orderNum),
 	CONSTRAINT FK_Purchase_Customers FOREIGN KEY (email) REFERENCES Customers (email)
 );
 

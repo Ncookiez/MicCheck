@@ -1,5 +1,7 @@
 <%@ page import="java.sql.*,java.net.URLEncoder" %>
 <%@ page import="java.text.NumberFormat" %>
+<%@ page import="java.util.HashMap" %>
+<%@ page import="java.util.ArrayList" %>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
@@ -13,10 +15,17 @@
 	
 <% // Get product name to search for
 String pID = request.getParameter("pID");
+String email = request.getParameter("email");
 /* Need on results page:
 String productID;
 out.println("<a href=\"item.jsp?pID="+productID+"\">Go to item page: </a>");
 */
+HashMap<String, ArrayList<Object>> productList = (HashMap<String, ArrayList<Object>>) session.getAttribute("productList");
+
+if (productList == null) {	// No products currently in list.  Create a list.
+	productList = new HashMap<String, ArrayList<Object>>();
+}
+
 try
 {	// Load driver class
 	Class.forName("com.microsoft.sqlserver.jdbc.SQLServerDriver");
@@ -60,7 +69,7 @@ try (Connection con = DriverManager.getConnection(url, uid, pw); Statement stmt 
 			seller = rst2.getString(2);
 		}
 		
-		out.println("<h1>"+title+"</h1>");
+		out.println("<h2>"+title+"</h2>");
 		out.println("<img src=\"Images/guitar.png\" alt=\""+title+"\"></img>");
 		out.println("<br /><h3>"+description+"</h3>");
 		out.println("Category: " + category);
@@ -69,7 +78,27 @@ try (Connection con = DriverManager.getConnection(url, uid, pw); Statement stmt 
 		out.println("<br />Condition: " + condition);
 		out.println("<br />Brand: " + brand);
 		out.println("<br />Year: " + year);
-		// Have not done tags yet
+		if (tags != null) 
+			out.println("<br />Tags: " + tags);	// Have not done tags yet
+		out.println("<br /><a href=\"shoppingcart.jsp?pID="+pID+"&email="+email+"\">Add to Cart</a>");
+		
+		// Store product information in an ArrayList
+		ArrayList<Object> product = new ArrayList<Object>();
+		product.add(pID);
+		product.add(title);
+		product.add(price);
+		product.add(new Integer(1)); // quantity
+		
+		// Update quantity if add same item to order again
+		if (productList.containsKey(pID))
+		{	product = (ArrayList<Object>) productList.get(pID);
+			int curAmount = ((Integer) product.get(3)).intValue();
+			product.set(3, new Integer(curAmount+1));
+		}
+		else
+			productList.put(pID,product);
+
+		session.setAttribute("productList", productList);
 		
 	}
 	
