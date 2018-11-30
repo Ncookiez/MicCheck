@@ -39,33 +39,39 @@
 	    <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
 	      <ul class="nav navbar-nav">
 	        <li class="dropdown">
-	          <a href="#" class="dropdown-toggle instruments-dropdown dropbtn" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Instruments <span class="caret"></span></a>
+	          <a class="dropdown-toggle instruments-dropdown dropbtn" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Instruments <span class="caret"></span></a>
 	          <ul class="dropdown-menu">
-	            <li><a href="results.jsp?search=Guitar">Guitar</a></li>
-	            <li><a href="results.jsp?search=Bass">Bass</a></li>
-	            <li><a href="results.jsp?search=Keyboard">Keyboard</a></li>
-	            <li><a href="results.jsp?search=Percussion">Percussion</a></li>
+	          	<%
+	          	out.print("<li><a href='results.jsp?search=Guitar&email= " + email + "' >Guitar</a></li>");
+	    		out.print("<li><a href='results.jsp?search=Bass&email= " + email + "' >Bass</a></li>");
+	    		out.print("<li><a href='results.jsp?search=Keyboard&email= " + email + "' >Keyboard</a></li>");
+	    		out.print("<li><a href='results.jsp?search=Percussion&email= " + email + "' >Percussion</a></li>");
+	          	%>
 	            <li class="dropdown-submenu">
 	            	<a>Orchestral</a>
 	            	<ul class="dropdown-menu">
-	            		<li><a href="results.jsp?search=Brass">Brass</a></li>
-	            		<li><a href="results.jsp?search=Strings">Strings</a></li>
-	            		<li><a href="results.jsp?search=Woodwind">Woodwind</a></li>
+	            		<%
+	            		out.print("<li><a href='results.jsp?search=Brass&email= " + email + "' >Brass</a></li>");
+	            		out.print("<li><a href='results.jsp?search=Strings&email= " + email + "' >Strings</a></li>");
+	            		out.print("<li><a href='results.jsp?search=Woodwind&email= " + email + "' >Woodwind</a></li>");
+	            		%>
 	            	</ul>
 	            </li>
 	          </ul>
 	        </li>
 	      </ul>
-	      <form class="navbar-form navbar-left" method="get" action="results.jsp">
+	      <%out.print("<form class='navbar-form navbar-left' method='get' action='results.jsp?email=" + email + "'>"); %>
 	    	<!-- Add 'form-homepage' to the class for the div listed directly below -->
 	        <div class="form-group form-homepage">
 	          <input type="text" class="form-control" placeholder="Search for your next instrument" name="search" style="width: 100%; height: 40px;">
 	        </div>
-	        <button type="submit" class="btn btn-default submit-btn" href="results.jsp">Submit</button>
+	        <%out.print("<button type='submit' class='btn btn-default submit-btn' href='results.jsp?email=" + email + "'>Search</button>"); %>
 	      </form>
 	      <ul class="nav navbar-nav navbar-right">
-	      	<li><a href="shoppingcart.jsp"><span class="glyphicon glyphicon-shopping-cart" aria-hidden="true"></span> Cart </a></li>
-	        <%        
+	      	<%out.print("<li><a href='shoppingcart.jsp?email=" + email + "&addingToCart=0'><span class='glyphicon glyphicon-shopping-cart' aria-hidden='true'></span> Cart </a></li>"); %>
+	        <%
+			email = null;
+	        email = request.getParameter("email");	        
 			if(email == null || email.equals("null")) {
 				out.println("<li><a href='signup.jsp'> Sign Up </a></li>");
 				out.println("<li><a href='login.jsp'><span class='glyphicon glyphicon-user' aria-hidden='true'></span> Log in </a></li>");
