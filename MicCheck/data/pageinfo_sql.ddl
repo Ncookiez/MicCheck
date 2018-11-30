@@ -1,3 +1,4 @@
+DROP TABLE PurchasedProduct;
 DROP TABLE Purchase;
 DROP TABLE Instrument;
 DROP TABLE Customers;

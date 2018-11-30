@@ -12,16 +12,6 @@
 	<link rel="stylesheet" type="text/css" href="NCss.css">
 	<link href="https://fonts.googleapis.com/css?family=Cairo|Lobster" rel="stylesheet">
 	
-	<!--
-	Implementation:
-	seller info in forms, make changes button to update
-	number of customers
-	list of customers in spoiler
-	number of sales, total money
-	list of products with edit and delete for each
-	edit button opens item info page with make changes button to return to seller page
-	-->
-	
 </head>
 <body>
 
@@ -103,6 +93,7 @@
 			while(rSet.next()) { customers.add(rSet.getString(1)); }
 			rSet = stmt.executeQuery("SELECT (quantity * price) AS totalPrice FROM PurchasedProduct WHERE pID IN (SELECT pID FROM Instrument WHERE sID = '" + sid + "')");
 			while(rSet.next()) { sNum++; money = money + rSet.getDouble(1); }
+			
 			%>
 			
 			<!-- Customer/Order Info -->
@@ -118,16 +109,19 @@
 		<%
 			
 		// Product Queries:
+		int x = 0;
+		ArrayList<Integer> productIds = new ArrayList<>();
 		ArrayList<String> products = new ArrayList<>();
-		rSet = stmt.executeQuery("SELECT title FROM Instrument WHERE sID = '" + sid + "'");
-		while(rSet.next()) { products.add(rSet.getString(1)); }
+		rSet = stmt.executeQuery("SELECT pID, title FROM Instrument WHERE sID = '" + sid + "'");
+		while(rSet.next()) { productIds.add(rSet.getInt(1)); products.add(rSet.getString(2)); }
+		
 		%>
 		
 		<!-- Product List -->
 		<div class="row">
 			<div class="col-md-12 text-center">
 				<h3>List of Products:</h3>
-				<% for(String p: products) { out.print("<p>" + p + "</p>"); } %>
+				<% for(String p: products) { out.print("<a href=\"adminItem.jsp?sid=" + sid + "&pid=" + productIds.get(x++) + "\" class=\"btn btn-info\" role=\"button\">" + p + "</a>"); } %>
 			</div>
 		</div>
 	</div>
@@ -136,13 +130,12 @@
 	
 	// Updating Seller Info:
 	String i = request.getParameter("i");
-	if(i != null) {
+	if(i != null && i != "null") {
 		name = request.getParameter("nameInput");
 		street = request.getParameter("streetInput");
 		city = request.getParameter("cityInput");
 		province = request.getParameter("provinceInput");
-		System.out.println(name + " " + street + " " + city + " " + province);
-		stmt.executeUpdate("UPDATE Seller SET name = '" + name + "', street = '" + street + "', city = '" + city + "', province = '" + province + "' WHERE sid = '" + sid + "'");
+		stmt.executeUpdate("UPDATE Seller SET name = '" + name + "', street = '" + street + "', city = '" + city + "', province = '" + province + "' WHERE sID = '" + sid + "'");
 	}
 	
 	// Closing Connection:
