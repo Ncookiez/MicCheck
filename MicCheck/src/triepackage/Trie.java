@@ -1,5 +1,9 @@
 package triepackage;
 
+import java.io.BufferedReader;
+import java.io.FileOutputStream;
+import java.io.FileReader;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashMap;
@@ -12,6 +16,54 @@ public class Trie {
 		
 	}
 	
+	public Trie(String file){
+		buildTrie(file);
+	}
+	
+	public void buildTrie(String file){
+		try(FileReader fr = new FileReader(file); BufferedReader br = new BufferedReader(fr)){
+			TrieNode parent = this.root;
+			int line = 0;
+			while(br.ready()){
+				String str = br.readLine();
+				if(line > 0){//skip null root
+					String[] word = str.split(" ");
+					if(str.charAt(1) != '/'){
+						TrieNode newChild = new TrieNode(parent, word[0].substring(3)); //account for "<T_"
+						String ids = word[1].split("'")[1];
+						String[] id = ids.split(",");
+						for(int i = 0; i < id.length; i++){
+							try{
+								newChild.ref.add(Integer.parseInt(id[i]));
+							}catch(NumberFormatException e){
+								
+							}
+						}
+						parent.chld.add(newChild);
+						newChild.root = parent;
+						parent = newChild;
+					}else{
+						parent = parent.root;
+						if(parent == null) break;
+					}
+				}
+				line++;
+			}
+			br.close();
+		}catch(IOException e){
+			e.printStackTrace();
+		}
+	}
+	
+	public void writeTrie(String file){
+		try(FileOutputStream fos = new FileOutputStream(file)){
+			fos.write(this.toXML().getBytes());
+			fos.close();
+		}catch(IOException e){
+			e.printStackTrace();
+		}
+	}
+	
 	public void add(String str, int id) {
 		str = str.toLowerCase();
 		if(str.length() > 0) root.add(str, id);
@@ -22,6 +74,7 @@ public class Trie {
 	}
 	
 	public int[] search(String str) {
+		if(str==null || str.length() == 0) return null;
 		str = str.toLowerCase();
 		String[] word = str.split(" ");
 		HashMap<Integer, Integer> idCount = new HashMap<Integer, Integer>();
@@ -228,15 +281,15 @@ public class Trie {
 				count++;
 			}
 			String tabs = "";
-			for(int t = 0; t < level; t++) {
+			/*for(int t = 0; t < level; t++) {
 				tabs+="\t";
-			}
+			}*/
 			String children = "";
 			for(TrieNode chld : this.chld) {
 				children+= "\n";
 				children+=chld.toXML(level+1);
 			}
-			return (tabs+"<"+this.str+ " ids='" + refs + "'>"+children+"\n" + tabs + "</"+this.str+">");
+			return (tabs+"<T_"+this.str+ " ids='" + refs + "'>"+children+"\n" + tabs + "</T_"+this.str+">");
 		}
 	}
 }
