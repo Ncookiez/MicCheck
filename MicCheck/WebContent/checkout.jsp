@@ -110,7 +110,6 @@
 
 	if (email == null || email.equals("null")) {
 		out.println("<h2 style=\"padding-top:130px\">You need to login before you checkout</h2><br /><a href=\"login.jsp\">Login</a>");
-		out.println("<br />" + email);
 		
 	} else {
 
