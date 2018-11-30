@@ -35,6 +35,31 @@
 		
 		tr:hover {
 			background-color: #f2f2f2;
+			cursor: pointer;
+		}
+		
+		img {
+			max-height: 100%;
+			max-width: 100%;
+			vertical-align: middle;
+		}
+		
+		.imageBack {
+			height: 175px;
+			width: 250px;
+			background-color: #414141;
+			background-size: cover;
+			border: 1px solid #021a40;
+			text-align: center;
+			white-space: nowrap;
+		}
+		
+		.imageBack:before,
+		.imageBack_before {
+		    content: "";
+		    display: inline-block;
+		    height: 100%;
+		    vertical-align: middle;
 		}
 	</style>
 </head>
@@ -180,7 +205,8 @@
 		}
 
 		if(rst != null){
-			out.println("<div class='container jumbotron-div'><h2>Results:</h2><br><table><th></th><th>Instrument</th><th>Category</th><th>Condition</th><th>Price</th>");
+			String contents = "";
+			int numLines = 0;
 			while (rst.next())
 			{	
 				int prodID = rst.getInt(1);
@@ -189,19 +215,23 @@
 				String condSearch = rst.getString(7);
 				if(condSearch==null) condSearch = "0";
 				float price = rst.getFloat(6);
-				String link = "<a href='item.jsp?pID="+prodID+"&email="+email+"' class='col-xs-6 col-md-3'>"
-					+"<h3>View Instrument</h3>"
-					+"</a>";
+				String link = "location.href='item.jsp?pID="+prodID+"&email="+email+"'";
+				String imgName = "Images/instrument"+prodID+".jpg";
+				String image = "<div class='imageBack'><object data='Image/instrument1.png' type='image/jpg'><img src='"+imgName+"'/></object></div>";
 				//"<a href='item.jsp?pID="+prodID+"&email="+email+"'>View Item</a>";
-				String line = "<tr><td>"+link+"</td><td>"+prodSearch+"</td><td>"+catSearch+"</td><td>"+ (condSearch.charAt(0)=='1' ? "New" : "Used") +"</td><td>"+currFormat.format(price)+"</td></tr>";
+				String line = "<tr onclick="+link+"><td>"+image+"</td><td>"+prodSearch+"</td><td>"+catSearch+"</td><td>"+ (condSearch.charAt(0)=='1' ? "New" : "Used") +"</td><td>"+currFormat.format(price)+"</td></tr>";
 				if(idOrder != null) results[idOrder.get(prodID)] = line;
-				else out.println(line);
+				else contents+=line+"\n";
+				numLines++;
 			}
+			out.println("<div class='container jumbotron-div'><h3>"+numLines+" results for \""+search+"\":</h3><br><table><th></th><th>Instrument</th><th>Category</th><th>Condition</th><th>Price</th>");
 			
 			if(results != null){
 				for(int i = 0; i < results.length; i++){
 					out.println(results[i]);
 				}
+			}else{
+				out.println(contents);
 			}
 			out.println("</table></div>");
 		}else{
