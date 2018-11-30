@@ -35,7 +35,7 @@
 	    <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
 	      <ul class="nav navbar-nav">
 	        <li class="dropdown">
-	          <a href="#" class="dropdown-toggle instruments-dropdown dropbtn" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Instruments <span class="caret"></span></a>
+	          <a class="dropdown-toggle instruments-dropdown dropbtn" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Instruments <span class="caret"></span></a>
 	          <ul class="dropdown-menu">
 	            <li><a href="results.jsp?search=Guitar">Guitar</a></li>
 	            <li><a href="results.jsp?search=Bass">Bass</a></li>
@@ -102,37 +102,37 @@
 		</div>
 
 		<div class="row">
-			<a href="results.jsp?search=Guitar" class="col-xs-6 col-md-3">
+			<%out.print("<a href='results.jsp?search=Guitar&email=" + email +" 'class='col-xs-6 col-md-3'>"); %>
 				<div class="thumbnail thumbnail_1">
 					<h3>Guitar</h3>
 				</div>
 			</a>
-			<a href="results.jsp?search=Bass" class="col-xs-6 col-md-3">
+			<%out.print("<a href='results.jsp?search=Bass&email=" + email +" 'class='col-xs-6 col-md-3'>"); %>
 				<div class="thumbnail thumbnail_2">
 					<h3>Bass</h3>
 				</div>
 			</a>
-			<a href="results.jsp?search=Keyboard" class="col-xs-6 col-md-3">
+			<%out.print("<a href='results.jsp?search=Keyboard&email=" + email +" 'class='col-xs-6 col-md-3'>"); %>
 				<div class="thumbnail thumbnail_3">
 					<h3>Keyboard</h3>
 				</div>
 			</a>
-			<a href="results.jsp?search=Percussion" class="col-xs-6 col-md-3">
+			<%out.print("<a href='results.jsp?search=Percussion&email=" + email +" 'class='col-xs-6 col-md-3'>"); %>
 				<div class="thumbnail thumbnail_4">
 					<h3>Percussion</h3>
 				</div>
 			</a>
-			<a href="results.jsp?search=Brass" class="col-lg-4 col-sm-6">
+			<%out.print("<a href='results.jsp?search=Brass&email=" + email +" 'class='col-lg-4 col-sm-6'>"); %>
 				<div class="thumbnail thumbnail_5">
 					<h3>Brass</h3>
 				</div>
 			</a>
-			<a href="results.jsp?search=Strings" class="col-lg-4 col-sm-6">
+			<%out.print("<a href='results.jsp?search=Strings&email=" + email +" 'class='col-lg-4 col-sm-6'>"); %>
 				<div class="thumbnail thumbnail_6">
 					<h3>Strings</h3>
 				</div>
 			</a>
-			<a href="results.jsp?search=Woodwind" class="col-lg-4 col-sm-6">
+			<%out.print("<a href='results.jsp?search=Woodwind&email=" + email +" 'class='col-lg-4 col-sm-6'>"); %>
 				<div class="thumbnail thumbnail_7">
 					<h3>Woodwind</h3>
 				</div>

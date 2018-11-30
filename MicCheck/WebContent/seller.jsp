@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ page import="java.sql.*" %>
+<%@ page import="java.text.NumberFormat" %>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
@@ -10,26 +11,12 @@
 	<link href="https://fonts.googleapis.com/css?family=Cairo|Lobster" rel="stylesheet">
 	<title>Seller Page</title>
 	
-	<style>
-	.thumbnail-user {
-		background: url("Images/blank-profile-picture-973460_960_720.png");
-		background-size: cover; 
-		background-color: #414141;
-		border: 1px solid #021a40;
-		height: 358px;
-		width: 355px;
-	}
-	.user-text {
-		font-family: 'Cairo', sans-serif;
-	}
-	</style>
-	
 </head>
 <body>
 
 	<%
-	String seller = Integer.toString(2);
-	String email = "joshhenderson@gmail.com";
+	String seller = request.getParameter("sID");
+	String email = request.getParameter("email");
 	%>
 	
 	<nav class="navbar navbar-default navbar-fixed-top">
@@ -141,7 +128,7 @@
 				<div class="column thumbnail thumbnail-user"></div>
 				<br>
 			</div>
-			<div class="col-md-5 user-text">
+			<div class="col-md-5 seller-text">
 				<%out.println("<h1>" + sellerName + "</h1>"); %>
 				<hr>
 				<br>
@@ -164,6 +151,45 @@
 			</div>
 		</div>
 		<hr>
+		<div class="row" style="padding-bottom: 30px;">
+			<div class="col-md-2"></div>
+			<div class="col-md-10">
+			<h2 class="seller-text">Listings by Seller</h2>
+			<br>
+			<table class="seller-text">
+				<th></th><th>Instruments</th><th>Category</th><th>Condition</th><th>Price</th>
+				<%
+				NumberFormat currFormat = NumberFormat.getCurrencyInstance();
+				
+				int productId = 0;
+				String productName = null;
+				String productCategory = null;
+				float productPrice = 0;
+				String productCondition = null;
+				
+				try(Connection con = DriverManager.getConnection(url, uid, pw);) {
+					Statement stmt = con.createStatement();
+					ResultSet rstl = stmt.executeQuery("SELECT pID, title, category, price, condition FROM Instrument WHERE sid='" + seller + "'");
+					while(rstl.next()) {
+						productId = rstl.getInt(1);
+						productName = rstl.getString(2);
+						productCategory = rstl.getString(3);
+						productPrice = rstl.getFloat(4);
+						productCondition = rstl.getString(5);
+						String link = "<a href='item.jsp?pID=" + productId + "&email=" + email + "' class='col-xs-6 col-md-3'><h3>View Instrument</h3></a>";
+						out.println("<tr><td>" + link + "</td><td>" + productName + "</td><td>" + productCategory + "</td><td>" + (productCondition.charAt(0) == '1' ? "New" : "Used") + "</td><td>" + currFormat.format(productPrice) + "</td></tr>");
+					}
+				} catch(Exception e) {
+					e.printStackTrace();
+				}
+				%>
+			</table>
+			
+			</div>
+		</div>
 	</div>
+	
+	<script src="http://code.jquery.com/jquery-3.3.1.js"></script>
+	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>	
 </body>
 </html>

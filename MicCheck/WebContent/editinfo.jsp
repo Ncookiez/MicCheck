@@ -26,6 +26,13 @@
 	<%
 	String email = null; 
 	email = request.getParameter("email");
+	String name = null;
+	String sStreet = null;
+	String sCity = null;
+	String sProvince = null;
+	String bStreet = null;
+	String bCity = null;
+	String bProvince = null;
 	%>
 	<nav class="navbar navbar-default navbar-fixed-top">
 	  <div class="container-fluid">
@@ -110,13 +117,6 @@
 	uid = "ncukiert";
 	pw = "41776162";
 	
-	String name = null;
-	String sStreet = null;
-	String sCity = null;
-	String sProvince = null;
-	String bStreet = null;
-	String bCity = null;
-	String bProvince = null;
 	
 	try {	// Load driver class
 		Class.forName("com.microsoft.sqlserver.jdbc.SQLServerDriver");
