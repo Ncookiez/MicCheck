@@ -56,7 +56,7 @@
 			    		<input type="text" class="form-control" id="sProvInput" name="sProvInput" required>
 			  		</div>
 			  		<div class="form-group size labelAlign">
-			  			<h3>Billing Address:</h3> 
+			  			<h3>Billing Address:</h3>
 			    		<label for="bStreetInput">Street: </label>
 			    		<input type="text" class="form-control" id="bStreetInput" name="bStreetInput" required>
 			    		<label for="bCityInput">City: </label>
