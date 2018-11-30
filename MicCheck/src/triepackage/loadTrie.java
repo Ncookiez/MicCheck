@@ -13,9 +13,9 @@ public class loadTrie {
 		Trie trie = new Trie();
 		
 		// Creating connection to database:
-		String url = "jdbc:sqlserver://sql04.ok.ubc.ca:1433;DatabaseName=db_trichard";
-		String uid = "trichard";
-		String pw = "27307164";
+		String url = "jdbc:sqlserver://sql04.ok.ubc.ca:1433;DatabaseName=db_ncukiert;";
+		String uid = "ncukiert";
+		String pw = "41776162";
 		System.out.println("Connecting to database.");
 		Connection con = DriverManager.getConnection(url, uid, pw);
 		
