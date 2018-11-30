@@ -1,4 +1,4 @@
-.form-group {
+.form-homepage {
 	width: 650px;
 }
 
@@ -26,7 +26,7 @@
 }
 
 .center-picture {
-	background: url("john-matychuk-491429-unsplash.jpg");
+	background: url("Images/john-matychuk-491429-unsplash.jpg");
 	background-size: cover;
 	height: 400px;
 }

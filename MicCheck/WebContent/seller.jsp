@@ -1,20 +1,22 @@
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8"%>
 <%@ page import="java.sql.*" %>
-<%@ page import="java.text.NumberFormat" %>
-<%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF8"%>
-<!DOCTYPE html>
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
-    <title>MicCheck Home Page</title>
-    <meta charset="UTF-8">
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
 	<link rel="stylesheet" type="text/css" href="MicCheck.css">
 	<link href="https://fonts.googleapis.com/css?family=Cairo|Lobster" rel="stylesheet">
+	<title>Seller Page</title>
 </head>
 <body>
-	
+
 	<%
+	String seller = request.getParameter("sid");
 	String email = request.getParameter("email");
 	%>
+	
 	<nav class="navbar navbar-default navbar-fixed-top">
 	  <div class="container-fluid">
 	    <!-- Brand and toggle get grouped for better mobile display -->
@@ -61,9 +63,7 @@
 	      </form>
 	      <ul class="nav navbar-nav navbar-right">
 	      	<li><a href="shoppingcart.jsp"><span class="glyphicon glyphicon-shopping-cart" aria-hidden="true"></span> Cart </a></li>
-	        <%
-			email = null;
-	        email = request.getParameter("email");	        
+	        <%        
 			if(email == null || email.equals("null")) {
 				out.println("<li><a href='signup.jsp'> Sign Up </a></li>");
 				out.println("<li><a href='login.jsp'><span class='glyphicon glyphicon-user' aria-hidden='true'></span> Log in </a></li>");
@@ -95,54 +95,10 @@
 	    </div><!-- /.navbar-collapse -->
 	  </div><!-- /.container-fluid -->
 	</nav>
-
-	<div class="container jumbotron-div">
-		<div class="jumbotron center-picture">
-  			<h1 class="micCheck-title" type="text">MicCheck</h1>
-		</div>
-
-		<div class="row">
-			<a href="results.jsp?search=Guitar" class="col-xs-6 col-md-3">
-				<div class="thumbnail thumbnail_1">
-					<h3>Guitar</h3>
-				</div>
-			</a>
-			<a href="results.jsp?search=Bass" class="col-xs-6 col-md-3">
-				<div class="thumbnail thumbnail_2">
-					<h3>Bass</h3>
-				</div>
-			</a>
-			<a href="results.jsp?search=Keyboard" class="col-xs-6 col-md-3">
-				<div class="thumbnail thumbnail_3">
-					<h3>Keyboard</h3>
-				</div>
-			</a>
-			<a href="results.jsp?search=Percussion" class="col-xs-6 col-md-3">
-				<div class="thumbnail thumbnail_4">
-					<h3>Percussion</h3>
-				</div>
-			</a>
-			<a href="results.jsp?search=Brass" class="col-lg-4 col-sm-6">
-				<div class="thumbnail thumbnail_5">
-					<h3>Brass</h3>
-				</div>
-			</a>
-			<a href="results.jsp?search=Strings" class="col-lg-4 col-sm-6">
-				<div class="thumbnail thumbnail_6">
-					<h3>Strings</h3>
-				</div>
-			</a>
-			<a href="results.jsp?search=Woodwind" class="col-lg-4 col-sm-6">
-				<div class="thumbnail thumbnail_7">
-					<h3>Woodwind</h3>
-				</div>
-			</a>
-		</div>
-	</div>
 	
-<script src="http://code.jquery.com/jquery-3.3.1.js"></script>
-<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>	
+	<%
+	String sellerName = null;
 	
-
+	%>
 </body>
-</head>
+</html>
