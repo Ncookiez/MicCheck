@@ -47,10 +47,18 @@ CREATE TABLE Purchase (
 	expectedTime	DATE,
 	dateOrdered		DATE,
 	email			VARCHAR(30),
-	pID				INT,
 	PRIMARY KEY (orderNum),
-	CONSTRAINT FK_Purchase_Customers FOREIGN KEY (email) REFERENCES Customers (email),
-	CONSTRAINT FK_Purchase_Instrument FOREIGN KEY (pID) REFERENCES Instrument (pID)
+	CONSTRAINT FK_Purchase_Customers FOREIGN KEY (email) REFERENCES Customers (email)
+);
+
+CREATE TABLE PurchasedProduct (
+	orderNum		INT NOT NULL,
+	pID				INT NOT NULL,
+	quantity		INT,
+	price			DECIMAL(9,2) NOT NULL,			
+	PRIMARY KEY (orderNum, pID),
+	CONSTRAINT FK_PurchasedProduct_Purchase FOREIGN KEY (orderNum) REFERENCES Purchase (orderNum),
+	CONSTRAINT FK_PurchasedProduct_Instrument FOREIGN KEY (pID) REFERENCES Instrument (pID)
 );
 
 INSERT INTO Seller VALUES (1, 'Rothery Vintage Electrics', '774 Middle of Knowhere', 'Victoria', 'BC', 4.5);
