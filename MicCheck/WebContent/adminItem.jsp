@@ -66,9 +66,10 @@
 	<div class="container" style="padding-top: 85px">
 		<div class="row">
 			<div class="col-md-12">
-				<form action="admin.jsp" method="get">
+				<form action="adminItem.jsp" method="get">
 					<div><input type="text" class="form-control" id="sid" name="sid" value="<% out.print(sid); %>" style="display: none"></div>
 					<div><input type="text" class="form-control" id="i" name="i" value="true" style="display: none"></div>
+					<div><input type="text" class="form-control" id="pid" name="pid" value="<% out.print(pid); %>" style="display: none"></div>
 	  				<div class="form-group size labelAlign">
 	    				<label for="titleInput">Name: </label>
 	    				<input type="text" class="form-control" id="titleInput" name="titleInput" value="<% out.print(title); %>" required>
@@ -97,7 +98,7 @@
 	
 	// Updating Item Info:
 	String i = request.getParameter("i");
-	if(i != null) {
+	if(i != null && i != "null") {
 		title = request.getParameter("titleInput");
 		desc = request.getParameter("descInput");
 		cat = request.getParameter("catInput");
@@ -106,8 +107,9 @@
 		brand = request.getParameter("brandInput");
 		year = request.getParameter("yearInput");
 		tags = request.getParameter("tagsInput");
-		System.out.println(title + desc + cat + price + cond + brand + year + tags);
 		stmt.executeUpdate("UPDATE Instrument SET title = '" + title + "', description = '" + desc + "', category = '" + cat + "', price = '" + price + "', condition = '" + cond + "', brand = '" + brand + "', year = '" + year + "', tags = '" + tags + "' WHERE pID = '" + pid + "'");
+		response.setStatus(response.SC_MOVED_TEMPORARILY);
+		response.setHeader("Location", "admin.jsp?sid=" + sid);
 	}
 	
 	// Closing Connection:
