@@ -87,7 +87,7 @@
 	    <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
 	      <ul class="nav navbar-nav">
 	        <li class="dropdown">
-	          <a href="#" class="dropdown-toggle instruments-dropdown dropbtn" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Instruments <span class="caret"></span></a>
+	          <a class="dropdown-toggle instruments-dropdown dropbtn" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Instruments <span class="caret"></span></a>
 	          <ul class="dropdown-menu">
 	            <li><a href="results.jsp?search=Guitar">Guitar</a></li>
 	            <li><a href="results.jsp?search=Bass">Bass</a></li>
@@ -105,7 +105,8 @@
 	        </li>
 	      </ul>
 	      <form class="navbar-form navbar-left" method="get" action="results.jsp">
-	        <div class="form-group">
+	    	<!-- Add 'form-homepage' to the class for the div listed directly below -->
+	        <div class="form-group form-homepage">
 	          <input type="text" class="form-control" placeholder="Search for your next instrument" name="search" style="width: 100%; height: 40px;">
 	        </div>
 	        <button type="submit" class="btn btn-default submit-btn" href="results.jsp">Submit</button>
@@ -224,7 +225,7 @@
 				else contents+=line+"\n";
 				numLines++;
 			}
-			out.println("<div class='container jumbotron-div'><h3>"+numLines+" results for \""+search+"\":</h3><br><table><th></th><th>Instrument</th><th>Category</th><th>Condition</th><th>Price</th>");
+			out.println("<div class='container jumbotron-div'><h3>"+numLines+" results for \""+search+"\":</h3><br><table width='100%'><th></th><th>Instrument</th><th>Category</th><th>Condition</th><th>Price</th>");
 			
 			if(results != null){
 				for(int i = 0; i < results.length; i++){
