@@ -9,12 +9,27 @@
 	<link rel="stylesheet" type="text/css" href="MicCheck.css">
 	<link href="https://fonts.googleapis.com/css?family=Cairo|Lobster" rel="stylesheet">
 	<title>Seller Page</title>
+	
+	<style>
+	.thumbnail-user {
+		background: url("Images/blank-profile-picture-973460_960_720.png");
+		background-size: cover; 
+		background-color: #414141;
+		border: 1px solid #021a40;
+		height: 358px;
+		width: 355px;
+	}
+	.user-text {
+		font-family: 'Cairo', sans-serif;
+	}
+	</style>
+	
 </head>
 <body>
 
 	<%
-	String seller = request.getParameter("sid");
-	String email = request.getParameter("email");
+	String seller = Integer.toString(2);
+	String email = "joshhenderson@gmail.com";
 	%>
 	
 	<nav class="navbar navbar-default navbar-fixed-top">
@@ -98,7 +113,57 @@
 	
 	<%
 	String sellerName = null;
+	String sellerStreet = null;
+	String sellerCity = null;
+	String sellerProvince = null;
+	double sellerRating = 0;
 	
+	try(Connection con = DriverManager.getConnection(url, uid, pw);) {
+		String SQL = "SELECT name, street, city, province, rating FROM Seller WHERE sid='" + seller + "'";
+		Statement stmt = con.createStatement();
+		ResultSet rstl = stmt.executeQuery(SQL);
+		
+		rstl.next();
+		sellerName = rstl.getString(1);
+		sellerStreet = rstl.getString(2);
+		sellerCity = rstl.getString(3);
+		sellerProvince = rstl.getString(4);
+		sellerRating = rstl.getDouble(5);
+	} catch(Exception e) {
+		e.printStackTrace();
+	}
 	%>
+	
+	<div class="container" style="padding-top: 80px;">
+		<div class="row">
+			<div class="col-md-1"></div>
+			<div class="col-md-5">
+				<div class="column thumbnail thumbnail-user"></div>
+				<br>
+			</div>
+			<div class="col-md-5 user-text">
+				<%out.println("<h1>" + sellerName + "</h1>"); %>
+				<hr>
+				<br>
+				<div class="panel panel-default">
+					<div class="panel-heading">
+						<h4>Seller's Address:</h4>
+					</div>
+					<div class="panel-body">
+						<%out.println(sellerStreet + " " + sellerCity + " " + sellerProvince);%>
+					</div>
+				</div>
+				<div class="panel panel-default">
+					<div class="panel-heading">
+						<h4>Rating:</h4>
+					</div>
+					<div class="panel-body">
+						<%out.println(sellerRating); %>
+					</div>
+				</div>
+			</div>
+		</div>
+		<hr>
+	</div>
 </body>
 </html>

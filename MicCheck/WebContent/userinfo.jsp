@@ -148,12 +148,13 @@
 	
 	<div class="container" style="padding-top: 80px;">
 		<div class="row">
-			<div class="col-md-6">
+			<div class="col-md-1"></div>
+			<div class="col-md-5">
 				<div class="column thumbnail thumbnail-user"></div>
 				<br>
 				<% out.print("<a class='button' href='editinfo.jsp?email=" + email + "'>Edit Information</a>"); %>
 			</div>
-			<div class="col-md-6 user-text">
+			<div class="col-md-5 user-text">
 				<%out.println("<h1>" + name + "</h1>"); %>
 				<hr>
 				<br>
