@@ -9,4 +9,4 @@ Josh - Home Page & Seller Page & Sample DDL
 
 Heather - Item Page & Shopping Cart
 
-Noah - Login Page & Sign Up Page
+Noah - Login Page & Sign Up Page & Admin Page
