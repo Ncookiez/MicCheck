@@ -18,7 +18,7 @@
 	@SuppressWarnings({"unchecked"})
 	HashMap<String, ArrayList<Object>> productList = (HashMap<String, ArrayList<Object>>) session.getAttribute("productList");
 
-	if (email == null) {
+	if (email == null || email.equals("null")) {
 		out.println("<h2>You need to login before you checkout</h2><br /><a href=\"login.jsp\">Login</a>");
 		out.println("<br />" + email);
 		
@@ -33,9 +33,9 @@
 	}
 	
 		// Make connection
-		String url = "jdbc:sqlserver://sql04.ok.ubc.ca:1433;DatabaseName=db_hmehain;";
-		String uid = "hmehain";
-		String pw = "87189106";
+		String url = "jdbc:sqlserver://sql04.ok.ubc.ca:1433;DatabaseName=db_ncukiert;";
+		String uid = "ncukiert";
+		String pw = "41776162";
 		try (Connection con = DriverManager.getConnection(url, uid, pw); Statement stmt = con.createStatement();) {
 	
 			String sql = "INSERT INTO Purchase (totalPrice, email) VALUES ( ?, ?);";

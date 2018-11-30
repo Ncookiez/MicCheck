@@ -114,7 +114,11 @@ catch (java.lang.ClassNotFoundException e)
 {
 	out.println("ClassNotFoundException: " +e);
 }
-
+/*
+String url = "jdbc:sqlserver://sql04.ok.ubc.ca:1433;DatabaseName=db_hmehain;";
+String uid = "hmehain";
+String pw = "87189106";
+*/
 //Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
 try (Connection con = DriverManager.getConnection(url, uid, pw); Statement stmt = con.createStatement();) {
 	String SQL = "SELECT * FROM Instrument WHERE pID=?;";
@@ -147,7 +151,7 @@ try (Connection con = DriverManager.getConnection(url, uid, pw); Statement stmt 
 			seller = rst2.getString(2);
 		}
 		
-		out.println("<h2>"+title+"</h2>");
+		out.println("<h2 style=\"padding-top:85px\">"+title+"</h2>");
 		String imgName = "Images/instrument"+pID+".jpg";
 		out.println("<img src="+imgName+" alt=\""+title+"\"></img>");
 		out.println("<br /><h3>"+description+"</h3>");
