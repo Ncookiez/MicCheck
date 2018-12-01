@@ -30,7 +30,7 @@
 				<form action="login.jsp" method="get">
 	  				<div class="form-group size labelAlign">
 	    				<label for="emailInput">Email Address: </label>
-	    				<input type="email" class="form-control" id="emailInput" name="emailInput" required>
+	    				<input type="text" class="form-control" id="emailInput" name="emailInput" required>
 	 				</div>
 	  				<div class="form-group size labelAlign">
 			    		<label for="passInput">Password: </label>
@@ -53,6 +53,12 @@
 	boolean passCheck = false;
 	int i = 0;
 	String serverPass = null;
+	
+	// Exception for Admin Login:
+	if(email == "Admin" && password == "admin") {
+		response.setStatus(response.SC_MOVED_TEMPORARILY);
+		response.setHeader("Location", "siteManager.jsp");
+	}
 	
 	// Preparing SQL Connection:
 	try { Class.forName("com.microsoft.sqlserver.jdbc.SQLServerDriver"); } catch(java.lang.ClassNotFoundException e) { out.println("ClassNotFoundException: " + e); }

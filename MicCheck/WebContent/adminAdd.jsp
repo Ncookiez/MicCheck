@@ -57,7 +57,7 @@
 	
 	<!-- Add Product Form -->
 	<div class="container main" style="padding-top: 85px; margin: 0 auto">
-		<div class="row">
+		<div class="row textFont">
 			<div class="col-md-3"></div>
 			<div class="col-md-6">
 				<form action="adminAdd.jsp" method="get">

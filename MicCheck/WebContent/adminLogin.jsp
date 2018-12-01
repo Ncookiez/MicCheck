@@ -20,7 +20,7 @@
 	
 	<!-- Login Box -->
 	<div class="container margin">
-		<div class="row">
+		<div class="row textFont">
 			<div class="col-md-4"></div>
 			<div class="col-md-4 text-center box text">
 				<a class="logo" href="homepage.jsp">MicCheck</a>

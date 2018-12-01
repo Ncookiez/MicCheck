@@ -7,7 +7,7 @@
 <html>
 <head>
 	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-	<title>Product Edit Page</title>
+	<title>Admin - Product Edit Page</title>
 	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
 	<link rel="stylesheet" type="text/css" href="MicCheck.css">
 	<link rel="stylesheet" type="text/css" href="NCss.css">
@@ -16,7 +16,6 @@
 </head>
 <body>
 
-	<% String sid = request.getParameter("sid"); %>
 	<% String pid = request.getParameter("pid"); %>
 	
 	<!-- Navbar -->
@@ -33,7 +32,7 @@
 	    	</div>
 	    	<div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
 	      		<ul class="nav navbar-nav navbar-right">
-	      			<% out.println("<li><a href='admin.jsp?sid=" + sid + "'><span class='glyphicon glyphicon-user' aria-hidden='true'></span> Your Account </a></li>"); %>
+	      			<% out.println("<li><a href='siteManager'><span class='glyphicon glyphicon-user' aria-hidden='true'></span>Admin</a></li>"); %>
 	      		</ul>
 	    	</div>
 	  	</div>
@@ -48,18 +47,19 @@
 	String pw = "41776162";
 	Connection con = DriverManager.getConnection(url, uid, pw);
 	Statement stmt = con.createStatement();
-	ResultSet rSet = stmt.executeQuery("SELECT title, description, category, price, condition, brand, year, tags FROM Instrument WHERE pID = '" + pid + "'");
+	ResultSet rSet = stmt.executeQuery("SELECT sID, title, description, category, price, condition, brand, year, tags FROM Instrument WHERE pID = '" + pid + "'");
 	
 	// Setting variables for specific instrument:
 	rSet.next();
-	String title = rSet.getString(1);
-	String desc = rSet.getString(2);
-	String cat = rSet.getString(3);
-	String price = "" + rSet.getDouble(4);
-	String cond = "" + rSet.getInt(5);
-	String brand = rSet.getString(6);
-	String year = "" + rSet.getInt(7);
-	String tags = rSet.getString(8);
+	String sID = "" + rSet.getInt(1);
+	String title = rSet.getString(2);
+	String desc = rSet.getString(3);
+	String cat = rSet.getString(4);
+	String price = "" + rSet.getDouble(5);
+	String cond = "" + rSet.getInt(6);
+	String brand = rSet.getString(7);
+	String year = "" + rSet.getInt(8);
+	String tags = rSet.getString(9);
 	
 	%>
 	
@@ -68,10 +68,13 @@
 		<div class="row textFont">
 			<div class="col-md-3"></div>
 			<div class="col-md-6">
-				<form action="adminItem.jsp" method="get">
-					<div><input type="text" class="form-control" id="sid" name="sid" value="<% out.print(sid); %>" style="display: none"></div>
+				<form action="siteManagerItem.jsp" method="get">
 					<div><input type="text" class="form-control" id="i" name="i" value="true" style="display: none"></div>
 					<div><input type="text" class="form-control" id="pid" name="pid" value="<% out.print(pid); %>" style="display: none"></div>
+					<div class="form-group size labelAlign">
+	    				<label for="sidInput">Sold By (Seller ID): </label>
+	    				<input type="text" class="form-control" id="sidInput" name="sidInput" value="<% out.print(sID); %>">
+	    			</div>
 	  				<div class="form-group size labelAlign">
 	    				<label for="titleInput">Name: </label>
 	    				<input type="text" class="form-control" id="titleInput" name="titleInput" value="<% out.print(title); %>">
@@ -106,7 +109,7 @@
 	 				</div>
 	 				<div style="margin-left: 35px; width: 80%" class="text-center">
 	 					<button type="submit" class="btn btn-primary">Make Changes</button>
-	 					<a href="adminDelete.jsp?pid=<% out.print(pid); %>&sid=<% out.print(sid); %>" class="btn btn-danger" role="button">Delete Product</a>
+	 					<a href="siteManagerDelete.jsp?pid=<% out.print(pid); %>" class="btn btn-danger" role="button">Delete Product</a>
 	 				</div>
 				</form>
 			</div>
@@ -118,6 +121,7 @@
 	// Updating Item Info:
 	String i = request.getParameter("i");
 	if(i != null && i != "null") {
+		sID = request.getParameter("sidInput");
 		title = request.getParameter("titleInput");
 		desc = request.getParameter("descInput");
 		cat = request.getParameter("catInput");
@@ -126,13 +130,13 @@
 		brand = request.getParameter("brandInput");
 		year = request.getParameter("yearInput");
 		tags = request.getParameter("tagsInput");
-		stmt.executeUpdate("UPDATE Instrument SET title = '" + title + "', description = '" + desc + "', category = '" + cat + "', price = '" + price + "', condition = '" + cond + "', brand = '" + brand + "', year = '" + year + "', tags = '" + tags + "' WHERE pID = '" + pid + "'");
+		stmt.executeUpdate("UPDATE Instrument SET sid = '" + sID + "', title = '" + title + "', description = '" + desc + "', category = '" + cat + "', price = '" + price + "', condition = '" + cond + "', brand = '" + brand + "', year = '" + year + "', tags = '" + tags + "' WHERE pID = '" + pid + "'");
 		Trie trie = new Trie(application.getRealPath("/") + "searchTrie.xml");
 		trie.remove(Integer.parseInt(pid));
 		trie.addProduct(Integer.parseInt(pid));
 		trie.writeTrie(application.getRealPath("/") + "searchTrie.xml");
 		response.setStatus(response.SC_MOVED_TEMPORARILY);
-		response.setHeader("Location", "admin.jsp?sid=" + sid);
+		response.setHeader("Location", "siteManager.jsp");
 	}
 	
 	// Closing Connection:

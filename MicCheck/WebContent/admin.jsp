@@ -60,7 +60,7 @@
 	
 	<!-- Admin Page -->
 	<div class="container main" style="padding-top: 85px">
-		<div class="row textAdmin">
+		<div class="row textFont">
 		
 			<!-- Seller Info -->
 			<div class="col-md-6">
@@ -123,7 +123,7 @@
 		%>
 		
 		<!-- Product List -->
-		<div class="row textAdmin">
+		<div class="row textFont">
 			<div class="col-md-12 text-center">
 				<hr>
 				<h3>List of Products:</h3>
