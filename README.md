@@ -7,7 +7,7 @@ Trevor - Results Page & Trie Setup & Server Setup
 
 Josh - Home Page & Seller Page & Sample DDL
 
-Heather - Item Page & Shopping Cart & Chekout Page
+Heather - Item Page & Shopping Cart & Checkout Page
 
 Noah - Login Page & Sign Up Page & Seller Login Pages & Admin Login Pages
 
