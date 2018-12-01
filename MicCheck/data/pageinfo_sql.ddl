@@ -99,4 +99,3 @@ INSERT INTO Customers VALUES ('thisisanemail@something.com', 'psswrd123', 'T. Te
 INSERT INTO Customers VALUES ('chuckthehunk@gugmit.com', 'xyz456', 'G. Heather', '177 Dilbert Avenue', 'Vancouver', 'BC', '177 Dilbert Avenue', 'Vancouver', 'BC');
 INSERT INTO Customers VALUES ('mylastattempt59@giveup.com', 'whocares2323', 'A. Rutherford', '23 Hucabee Delta Road', 'Kingston', 'ON', '154 Barlow Avenue', 'Edmonton', 'AB');
 INSERT INTO Customers VALUES ('okayonemore345@something.com', 'imtryingagain', 'B. Breton', '454 Coudvere Street', 'Winnipeg', 'MB', '15134 Scanto Reeve Drive', 'Montreal', 'QC');
-INSERT INTO Customers VALUES ('admin@miccheck.com', 'admin', 'Admin', '-', '-', '-', '-', '-', '-');
