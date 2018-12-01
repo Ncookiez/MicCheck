@@ -32,7 +32,7 @@
 	    	</div>
 	    	<div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
 	      		<ul class="nav navbar-nav navbar-right">
-	      			<% out.println("<li><a href='siteManager'><span class='glyphicon glyphicon-user' aria-hidden='true'></span>Admin</a></li>"); %>
+	      			<% out.println("<li><a href='siteManager.jsp'><span class='glyphicon glyphicon-user' aria-hidden='true'></span> Admin</a></li>"); %>
 	      		</ul>
 	    	</div>
 	  	</div>
@@ -47,7 +47,7 @@
 	String pw = "41776162";
 	Connection con = DriverManager.getConnection(url, uid, pw);
 	Statement stmt = con.createStatement();
-	ResultSet rSet = stmt.executeQuery("SELECT sID, title, description, category, price, condition, brand, year, tags FROM Instrument WHERE pID = '" + pid + "'");
+	ResultSet rSet = stmt.executeQuery("SELECT sID, title, description, category, price, cond, brand, year, tags FROM Instrument WHERE pID = '" + pid + "'");
 	
 	// Setting variables for specific instrument:
 	rSet.next();
@@ -130,7 +130,7 @@
 		brand = request.getParameter("brandInput");
 		year = request.getParameter("yearInput");
 		tags = request.getParameter("tagsInput");
-		stmt.executeUpdate("UPDATE Instrument SET sid = '" + sID + "', title = '" + title + "', description = '" + desc + "', category = '" + cat + "', price = '" + price + "', condition = '" + cond + "', brand = '" + brand + "', year = '" + year + "', tags = '" + tags + "' WHERE pID = '" + pid + "'");
+		stmt.executeUpdate("UPDATE Instrument SET sid = '" + sID + "', title = '" + title + "', description = '" + desc + "', category = '" + cat + "', price = '" + price + "', cond = '" + cond + "', brand = '" + brand + "', year = '" + year + "', tags = '" + tags + "' WHERE pID = '" + pid + "'");
 		Trie trie = new Trie(application.getRealPath("/") + "searchTrie.xml");
 		trie.remove(Integer.parseInt(pid));
 		trie.addProduct(Integer.parseInt(pid));

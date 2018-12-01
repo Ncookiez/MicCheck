@@ -48,7 +48,7 @@
 	String pw = "41776162";
 	Connection con = DriverManager.getConnection(url, uid, pw);
 	Statement stmt = con.createStatement();
-	ResultSet rSet = stmt.executeQuery("SELECT title, description, category, price, condition, brand, year, tags FROM Instrument WHERE pID = '" + pid + "'");
+	ResultSet rSet = stmt.executeQuery("SELECT title, description, category, price, cond, brand, year, tags FROM Instrument WHERE pID = '" + pid + "'");
 	
 	// Setting variables for specific instrument:
 	rSet.next();
@@ -126,7 +126,7 @@
 		brand = request.getParameter("brandInput");
 		year = request.getParameter("yearInput");
 		tags = request.getParameter("tagsInput");
-		stmt.executeUpdate("UPDATE Instrument SET title = '" + title + "', description = '" + desc + "', category = '" + cat + "', price = '" + price + "', condition = '" + cond + "', brand = '" + brand + "', year = '" + year + "', tags = '" + tags + "' WHERE pID = '" + pid + "'");
+		stmt.executeUpdate("UPDATE Instrument SET title = '" + title + "', description = '" + desc + "', category = '" + cat + "', price = '" + price + "', cond = '" + cond + "', brand = '" + brand + "', year = '" + year + "', tags = '" + tags + "' WHERE pID = '" + pid + "'");
 		Trie trie = new Trie(application.getRealPath("/") + "searchTrie.xml");
 		trie.remove(Integer.parseInt(pid));
 		trie.addProduct(Integer.parseInt(pid));
