@@ -28,22 +28,22 @@ CREATE TABLE Seller (
 );
 
 CREATE TABLE Instrument (
-	pID			INT NOT NULL,	
-	sID			INT,
-	title		VARCHAR(50) NOT NULL,
-	description	VARCHAR(1000),
-	category	VARCHAR(15),
-	price		DECIMAL(9,2) NOT NULL,
-	condition	INT,
-	brand		VARCHAR(20) NOT NULL,
-	year		INT,
-	tags		VARCHAR(200),
+	pID         INT NOT NULL,	
+	sID         INT,
+	title       VARCHAR(50) NOT NULL,
+	description VARCHAR(1000),
+	category    VARCHAR(15),
+	price       DECIMAL(9,2) NOT NULL,
+	cond        INT,
+	brand       VARCHAR(20) NOT NULL,
+	year        INT,
+	tags        VARCHAR(200),
 	PRIMARY KEY (pID),
 	CONSTRAINT FK_Instrument_Seller FOREIGN KEY (sID) REFERENCES Seller (sID)
 );
 
 CREATE TABLE Purchase (
-	orderNum		INT NOT NULL IDENTITY PRIMARY KEY,
+	orderNum		INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
 	totalPrice		DECIMAL(9,2),
 	expectedTime	DATE,
 	dateOrdered		DATE,
@@ -99,4 +99,4 @@ INSERT INTO Customers VALUES ('thisisanemail@something.com', 'psswrd123', 'T. Te
 INSERT INTO Customers VALUES ('chuckthehunk@gugmit.com', 'xyz456', 'G. Heather', '177 Dilbert Avenue', 'Vancouver', 'BC', '177 Dilbert Avenue', 'Vancouver', 'BC');
 INSERT INTO Customers VALUES ('mylastattempt59@giveup.com', 'whocares2323', 'A. Rutherford', '23 Hucabee Delta Road', 'Kingston', 'ON', '154 Barlow Avenue', 'Edmonton', 'AB');
 INSERT INTO Customers VALUES ('okayonemore345@something.com', 'imtryingagain', 'B. Breton', '454 Coudvere Street', 'Winnipeg', 'MB', '15134 Scanto Reeve Drive', 'Montreal', 'QC');
-
+INSERT INTO Customers VALUES ('admin@miccheck.com', 'admin', 'Admin', '-', '-', '-', '-', '-', '-');
