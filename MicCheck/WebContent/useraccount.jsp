@@ -10,61 +10,6 @@
 	<link rel="stylesheet" type="text/css" href="MicCheck.css">
 	<title>User Account Page</title>
 	
-	<!-- <style>
-	.cart-thumbnail {
-		background: url("Images/icon-1415760_960_720.png");
-		background-size: cover; 
-		height: 150px;
-		width: 150px
-	}
-	.info-thumbnail {
-		background: url("Images/tag-1873545_960_720.png");
-		background-size: cover; 
-		height: 150px;
-		width: 150px
-	}
-	.edit-thumbnail {
-		background: url("Images/cyber-security-1915629_960_720.png");
-		background-size: cover; 
-		height: 150px;
-		width: 150px
-	}
-	.column_1 {
-		padding-top: 20px;
-		text-align:center;
-		font-family: 'Cairo', sans-serif;
-		font-size: 18px;
-		color: black;
-	}
-	.column_2 {
-		padding-top: 30px;
-		text-align:center;
-		font-family: 'Cairo', sans-serif;
-		font-size: 18px;
-		color: black;
-	}
-	.inner-row {
-		border: 1px solid #021a40;
-	}
-	.account-name {
-		font-family: 'Cairo', sans-serif;
-		font-weight: bold;
-		color: black;
-	}
-	.container-account-info {
-		padding-top: 70px;
-		padding-bottom: 30px;
-		padding-right: 15px;
-		padding-left: 15px;
-	}
-	.btn-div {
-		padding-top:15px;
-		padding-left:495px;
-	}
-	.log-out-button {
-		font-family: 'Cairo', sans-serif;
-	}
-	</style> -->
 </head>
 <body>
 	<%
@@ -184,23 +129,23 @@
 			e.printStackTrace();
 		} 
 		%>
-		<div class = "row">
-			<div class="col-lg-6">
-				<%out.println("<h1 class='account-name'>" + name + "'s Account</h1>"); %>
-			</div>
-			<div class="col-lg-6 btn-div">
-				<%
-				if(email != null && !email.equals("null")) {
-					out.print("<a href='homepage.jsp' class='btn btn-default log-out-button'><h4>Log out</h4></a>");
-				}
-				%>
-			</div>
-		</div>
-				
+			<div class = "row">
+				<div class="col-lg-6">
+					<%out.println("<h1 class='account-name'>" + name + "'s Account</h1>"); %>
+				</div>
+				<div class="col-lg-6 btn-div">
+					<%
+					if(email != null && !email.equals("null")) {
+						out.print("<a href='homepage.jsp' class='btn btn-default log-out-button'><h4>Log out</h4></a>");
+					}
+					%>
+				</div>
+			</div>			
 		<br>
 		</div>
+	
 		<div class="row">
-			<%out.print("<a href='shoppingcart.jsp?email=" + email + "&addingToCart=0' class='col-sm-4'>");%>
+			<%out.print("<a href='shoppingcart.jsp?email=" + email + "&addingToCart=0' class='col-sm-6'>");%>
 				<div class="row inner-row">
 					<div class="column cart-thumbnail col-sm-3"></div>
 					<div class="column_1">
@@ -208,7 +153,15 @@
 					</div>
 				</div>
 			</a> 
-			<%out.print("<a href='userinfo.jsp?email=" + email + "' class='col-sm-4'>"); %>
+			<%out.print("<a href='orderHistory.jsp?email=" + email + "&addingToCart=0' class='col-sm-6' style='padding-bottom:20px;'>");%>
+				<div class="row inner-row">
+					<div class="column orders-thumbnail col-sm-3"></div>
+					<div class="column_1">
+						<h3>View previous orders</h3>
+					</div>
+				</div>
+			</a> 
+			<%out.print("<a href='userinfo.jsp?email=" + email + "' class='col-sm-6'>"); %>
 				<div class="row inner-row">
 					<div class="column info-thumbnail col-sm-3"></div>
 					<div class="column_1">
@@ -216,7 +169,7 @@
 					</div>
 				</div>
 			</a>
-			<%out.print("<a href='editinfo.jsp?email=" + email + "' class='col-sm-4'>"); %>
+			<%out.print("<a href='editinfo.jsp?email=" + email + "' class='col-sm-6'>"); %>
 				<div class="row inner-row">
 					<div class="column edit-thumbnail col-sm-3"></div>
 					<div class="column_2">

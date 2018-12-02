@@ -253,6 +253,12 @@ tr:hover {
 	height: 150px;
 	width: 150px
 }
+.orders-thumbnail {
+	background: url("Images/cardboard-1689424_960_720.png");
+	background-size: cover; 
+	height: 150px;
+	width: 150px
+}
 .info-thumbnail {
 	background: url("Images/tag-1873545_960_720.png");
 	background-size: cover; 

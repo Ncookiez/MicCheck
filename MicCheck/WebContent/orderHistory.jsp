@@ -1,14 +1,15 @@
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8"%>
 <%@ page import="java.sql.*" %>
 <%@ page import="java.text.NumberFormat" %>
-<%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF8"%>
-<!DOCTYPE html>
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
-    <title>MicCheck Home Page</title>
-    <meta charset="UTF-8">
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
 	<link rel="stylesheet" type="text/css" href="MicCheck.css">
 	<link href="https://fonts.googleapis.com/css?family=Cairo|Lobster" rel="stylesheet">
+	<title>Purchase History</title>
 </head>
 <body>
 	
@@ -99,54 +100,42 @@
 			</div><!-- /.navbar-collapse -->
 		</div><!-- /.container-fluid -->
 	</nav>
-
-	<div class="container jumbotron-div">
-		<div class="jumbotron center-picture">
-  			<h1 class="micCheck-title" type="text">MicCheck</h1>
-		</div>
-
-		<div class="row">
-			<%out.print("<a href='results.jsp?search=Guitar&email=" + email +" 'class='col-xs-6 col-md-3'>"); %>
-				<div class="thumbnail thumbnail_1">
-					<h3>Guitar</h3>
-				</div>
-			</a>
-			<%out.print("<a href='results.jsp?search=Bass&email=" + email +" 'class='col-xs-6 col-md-3'>"); %>
-				<div class="thumbnail thumbnail_2">
-					<h3>Bass</h3>
-				</div>
-			</a>
-			<%out.print("<a href='results.jsp?search=Keyboard&email=" + email +" 'class='col-xs-6 col-md-3'>"); %>
-				<div class="thumbnail thumbnail_3">
-					<h3>Keyboard</h3>
-				</div>
-			</a>
-			<%out.print("<a href='results.jsp?search=Percussion&email=" + email +" 'class='col-xs-6 col-md-3'>"); %>
-				<div class="thumbnail thumbnail_4">
-					<h3>Percussion</h3>
-				</div>
-			</a>
-			<%out.print("<a href='results.jsp?search=Brass&email=" + email +" 'class='col-lg-4 col-sm-6'>"); %>
-				<div class="thumbnail thumbnail_5">
-					<h3>Brass</h3>
-				</div>
-			</a>
-			<%out.print("<a href='results.jsp?search=Strings&email=" + email +" 'class='col-lg-4 col-sm-6'>"); %>
-				<div class="thumbnail thumbnail_6">
-					<h3>Strings</h3>
-				</div>
-			</a>
-			<%out.print("<a href='results.jsp?search=Woodwind&email=" + email +" 'class='col-lg-4 col-sm-6'>"); %>
-				<div class="thumbnail thumbnail_7">
-					<h3>Woodwind</h3>
-				</div>
-			</a>
-		</div>
-	</div>
+	<%
+	if(email == null || email.equals("null")) {
+		%> <h1 style="padding-top:50px;">No email provided</h1> <%
+	} else {
+		int orderNum = 0;
+		url = "jdbc:sqlserver://sql04.ok.ubc.ca:1433;DatabaseName=db_ncukiert;";
+		uid = "ncukiert";
+		pw = "41776162";
+		NumberFormat currFormat = NumberFormat.getCurrencyInstance();
+		try {	// Load driver class
+			Class.forName("com.microsoft.sqlserver.jdbc.SQLServerDriver");
+		}
+		catch (java.lang.ClassNotFoundException e) {
+			out.println("ClassNotFoundException: " +e);
+		}
+		
+		try (Connection con = DriverManager.getConnection(url, uid, pw);) {
+			String SQL = "SELECT Purchase.orderNum, totalPrice, title FROM Purchase, PurchasedProduct, Instrument WHERE Purchase.orderNum = PurchasedProduct.orderNum AND Instrument.pID = PurchasedProduct.pID AND email=?";
+			PreparedStatement prpStmt = con.prepareStatement(SQL);
+			prpStmt.setString(1, email);
+			ResultSet rstl = prpStmt.executeQuery();
+			
+			if(!rstl.next()) {
+				out.println("<h1 style='padding-top:50px'>You have no previous orders with us</h1>");
+			} else {
+				out.println("<h1 style='padding-top:50px;'>Your purchases are: </h1>");
+				do {
+					out.println("<h4>Order number is: " + rstl.getInt(1) + "</h4><h4>Price of order is: " + currFormat.format(rstl.getDouble(2)) + "</h4><h4>Product purchased is: " + rstl.getString(3) + "</h4>");
+				} while(rstl.next());
+			}
+			
+		} catch(Exception e) {
+			e.printStackTrace();
+		}
+	}
+	%>
 	
-<script src="http://code.jquery.com/jquery-3.3.1.js"></script>
-<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>	
-	
-
 </body>
-</head>
+</html>
