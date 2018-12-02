@@ -43,7 +43,7 @@ CREATE TABLE Instrument (
 );
 
 CREATE TABLE Purchase (
-	orderNum		INT NOT NULL IDENTITY PRIMARY KEY,
+	orderNum		INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
 	totalPrice		DECIMAL(9,2),
 	expectedTime	DATE,
 	dateOrdered		DATE,

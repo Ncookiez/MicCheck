@@ -14,10 +14,9 @@
 	
 	// Finding and deleting appropriate item:
 	String pid = request.getParameter("pid");
-	try { Class.forName("com.microsoft.sqlserver.jdbc.SQLServerDriver"); } catch(java.lang.ClassNotFoundException e) { out.println("ClassNotFoundException: " + e); }
-	String url = "jdbc:sqlserver://sql04.ok.ubc.ca:1433;DatabaseName=db_ncukiert;";
-	String uid = "ncukiert";
-	String pw = "41776162";
+	String url = "jdbc:mysql://173.194.107.58/MicCheck";
+	String uid = "Ncookie";
+	String pw = "miccheck";
 	Connection con = DriverManager.getConnection(url, uid, pw);
 	Statement stmt = con.createStatement();
 	stmt.executeUpdate("DELETE FROM Instrument WHERE pID = '" + pid + "';");
