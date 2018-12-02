@@ -271,7 +271,7 @@
 			out.println("<br><strong>"+currFormat.format(price)+"</strong>");
 			out.println("</div></div>");
 		}
-		out.println("</div></div>");
+		out.println("</div></div><br><br>");
 		out.println("</div>");//end of page body html
 				
 	}
