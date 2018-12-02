@@ -55,9 +55,11 @@
 	String serverPass = null;
 	
 	// Exception for Admin Login:
-	if(email.equals("Admin") && password.equals("admin")) {
-		response.setStatus(response.SC_MOVED_TEMPORARILY);
-		response.setHeader("Location", "siteManager.jsp");
+	if(email != null) {
+		if(email.equals("Admin") && password.equals("admin")) {
+			response.setStatus(response.SC_MOVED_TEMPORARILY);
+			response.setHeader("Location", "siteManager.jsp");
+		}
 	}
 	
 	// Preparing SQL Connection:
