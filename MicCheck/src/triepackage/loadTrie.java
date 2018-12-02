@@ -25,7 +25,7 @@ public class loadTrie {
 		ResultSet rst;
 		
 		try{
-			rst = stmnt.executeQuery("SELECT pID, title, category, condition, brand, year, tags FROM Instrument");
+			rst = stmnt.executeQuery("SELECT pID, title, category, cond, brand, year, tags FROM Instrument");
 			while(rst.next()){
 				int pID = rst.getInt(1);
 				String[] title = strip(rst.getString(2)).split(" ");

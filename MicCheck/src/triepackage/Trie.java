@@ -90,7 +90,7 @@ public class Trie {
 		Connection con = DriverManager.getConnection(url, uid, pw);
 		
 		try{
-			String sql = "SELECT title, category, condition, brand, year, tags FROM Instrument WHERE pID = ?";
+			String sql = "SELECT title, category, cond, brand, year, tags FROM Instrument WHERE pID = ?";
 			PreparedStatement pstmt = con.prepareStatement(sql);
 			pstmt.setInt(1, pID);
 			ResultSet rst = pstmt.executeQuery();
