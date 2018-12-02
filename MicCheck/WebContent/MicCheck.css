@@ -2,6 +2,7 @@
 	background-image: url("Images/background_gradient.jpg");
 	background-repeat: no-repeat;
 	background-attachment: fixed;
+	background-size: cover;
 }
 
 .form-homepage {
