@@ -61,6 +61,18 @@
 		    height: 100%;
 		    vertical-align: middle;
 		}
+		
+		.wholeLink {
+			cursor: pointer;
+			width: 250px;
+		}
+		
+		.subGroup {
+			width: 100%;
+			background-color: #75472d;
+			color: white;
+			padding: 15px;
+		}
 	</style>
 </head>
 <body>
@@ -90,18 +102,18 @@
 	          <a class="dropdown-toggle instruments-dropdown dropbtn" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Instruments <span class="caret"></span></a>
 	          <ul class="dropdown-menu">
 	          	<%
-	          	out.print("<li><a href='results.jsp?search=Guitar&email= " + email + "' >Guitar</a></li>");
-	    		out.print("<li><a href='results.jsp?search=Bass&email= " + email + "' >Bass</a></li>");
-	    		out.print("<li><a href='results.jsp?search=Keyboard&email= " + email + "' >Keyboard</a></li>");
-	    		out.print("<li><a href='results.jsp?search=Percussion&email= " + email + "' >Percussion</a></li>");
+	          	out.print("<li><a href='results.jsp?search=Guitar&email=" + email + "' >Guitar</a></li>");
+	    		out.print("<li><a href='results.jsp?search=Bass&email=" + email + "' >Bass</a></li>");
+	    		out.print("<li><a href='results.jsp?search=Keyboard&email=" + email + "' >Keyboard</a></li>");
+	    		out.print("<li><a href='results.jsp?search=Percussion&email=" + email + "' >Percussion</a></li>");
 	          	%>
 	            <li class="dropdown-submenu">
 	            	<a>Orchestral</a>
 	            	<ul class="dropdown-menu">
 	            		<%
-	            		out.print("<li><a href='results.jsp?search=Brass&email= " + email + "' >Brass</a></li>");
-	            		out.print("<li><a href='results.jsp?search=Strings&email= " + email + "' >Strings</a></li>");
-	            		out.print("<li><a href='results.jsp?search=Woodwind&email= " + email + "' >Woodwind</a></li>");
+	            		out.print("<li><a href='results.jsp?search=Brass&email=" + email + "' >Brass</a></li>");
+	            		out.print("<li><a href='results.jsp?search=Strings&email=" + email + "' >Strings</a></li>");
+	            		out.print("<li><a href='results.jsp?search=Woodwind&email=" + email + "' >Woodwind</a></li>");
 	            		%>
 	            	</ul>
 	            </li>
@@ -172,10 +184,6 @@
 	{
 		out.println("ClassNotFoundException: " +e);
 	}
-	
-	//String url = "jdbc:sqlserver://sql04.ok.ubc.ca:1433;Databasesearch=db_trichard;";
-	//String uid = "trichard";
-	//String pw = "27307164";
 
 	try (Connection con = DriverManager.getConnection(url, uid, pw);)
 	{
@@ -209,6 +217,7 @@
 			rst = pstmt.executeQuery();
 		}
 
+		out.println("<div class='container jumbotron-div'>");//start of page body html
 		if(rst != null){
 			String contents = "";
 			int numLines = 0;
@@ -222,14 +231,13 @@
 				float price = rst.getFloat(6);
 				String link = "location.href='item.jsp?pID="+prodID+"&email="+email+"'";
 				String imgName = "Images/instrument"+prodID+".jpg";
-				String image = "<div class='imageBack'><object data='Image/instrument1.png' type='image/jpg'><img src='"+imgName+"'/></object></div>";
-				//"<a href='item.jsp?pID="+prodID+"&email="+email+"'>View Item</a>";
+				String image = "<div class='imageBack'><img src='"+imgName+"'/></div>";
 				String line = "<tr onclick="+link+"><td>"+image+"</td><td><h4>"+prodSearch+"</h4></td><td>"+catSearch+"</td><td>"+ (condSearch.charAt(0)=='1' ? "New" : "Used") +"</td><td><strong>"+currFormat.format(price)+"</strong></td></tr>";
 				if(idOrder != null) results[idOrder.get(prodID)] = line;
 				else contents+=line+"\n";
 				numLines++;
 			}
-			out.println("<div class='container jumbotron-div'><h3>"+numLines+" results for \""+search+"\":</h3><br><table width='100%'><th></th><th>Instrument</th><th>Category</th><th>Condition</th><th>Price</th>");
+			out.println("<h3>"+numLines+" results for \""+search+"\":</h3><br><table width='100%'><th></th><th>Instrument</th><th>Category</th><th>Condition</th><th>Price</th>");
 			
 			if(results != null){
 				for(int i = 0; i < results.length; i++){
@@ -238,10 +246,33 @@
 			}else{
 				out.println(contents);
 			}
-			out.println("</table></div>");
+			out.println("</table>");
 		}else{
-			out.println("<div class='container jumbotron-div'><h3>Sorry, no results were found for \""+search+"\".</h3></div>");
+			out.println("<h3>Sorry, no results were found for \""+search+"\".</h3>");
 		}
+		
+		//Dynamic suggestions:
+		pstmt = con.prepareStatement("SELECT TOP 4 Instrument.pID, title, price FROM Instrument, (SELECT pID, COUNT(pID) AS numProd FROM PurchasedProduct GROUP BY pID) AS Popular WHERE Instrument.pID=Popular.pID ORDER BY numProd DESC");
+		rst = pstmt.executeQuery();
+		
+		out.println("<br><h3>Popular products</h3>");
+		out.println("<div class='subGroup'><div class='row'>");
+		while(rst.next()){
+			int pid = rst.getInt(1);
+			String title = rst.getString(2);
+			float price = rst.getFloat(3);
+			String link = "location.href='item.jsp?pID="+pid+"&email="+email+"'";
+			String imgName = "Images/instrument"+pid+".jpg";
+			String image = "<div class='imageBack'><img src='"+imgName+"'/></div>";
+			
+			out.println("<div class='col-xs-6 col-md-3'><div class='wholeLink' onclick="+link+">");
+			out.println(image);
+			out.println(title);
+			out.println("<br><strong>"+currFormat.format(price)+"</strong>");
+			out.println("</div></div>");
+		}
+		out.println("</div></div>");
+		out.println("</div>");//end of page body html
 				
 	}
 	catch (SQLException ex) 
