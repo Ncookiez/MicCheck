@@ -1,3 +1,9 @@
+.background{
+	background-image: url("Images/background_gradient.jpg");
+	background-repeat: no-repeat;
+	background-attachment: fixed;
+}
+
 .form-homepage {
 	width: 650px;
 }
