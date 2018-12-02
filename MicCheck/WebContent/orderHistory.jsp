@@ -73,6 +73,16 @@
 						out.println("<li><a href='signup.jsp'> Sign Up </a></li>");
 						out.println("<li><a href='login.jsp'><span class='glyphicon glyphicon-user' aria-hidden='true'></span> Log in </a></li>");
 					}
+					
+					try
+					{	// Load driver class
+						Class.forName("com.mysql.jdbc.Driver");
+					}
+					catch (java.lang.ClassNotFoundException e)
+					{
+						out.println("ClassNotFoundException: " +e);
+					}
+					
 					String url = "jdbc:mysql://173.194.107.58/MicCheck";
 					String uid = "Ncookie";
 					String pw = "miccheck";
@@ -109,17 +119,8 @@
 							%> <h1>No email provided</h1></div> <%
 						} else {
 							int orderNum = 0;
-							url = "jdbc:sqlserver://sql04.ok.ubc.ca:1433;DatabaseName=db_ncukiert;";
-							uid = "ncukiert";
-							pw = "41776162";
 							NumberFormat currFormat = NumberFormat.getCurrencyInstance();
-							try {	// Load driver class
-								Class.forName("com.microsoft.sqlserver.jdbc.SQLServerDriver");
-							}
-							catch (java.lang.ClassNotFoundException e) {
-								out.println("ClassNotFoundException: " +e);
-							}
-							
+
 							try (Connection con = DriverManager.getConnection(url, uid, pw);) {
 								String SQL = "SELECT Purchase.orderNum, totalPrice, title, expectedTime FROM Purchase, PurchasedProduct, Instrument WHERE Purchase.orderNum = PurchasedProduct.orderNum AND Instrument.pID = PurchasedProduct.pID AND email=?";
 								PreparedStatement prpStmt = con.prepareStatement(SQL);

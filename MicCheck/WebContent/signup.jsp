@@ -92,6 +92,15 @@
 	boolean provCheck = false;
 	int i = 0;
 	
+	try
+	{	// Load driver class
+		Class.forName("com.mysql.jdbc.Driver");
+	}
+	catch (java.lang.ClassNotFoundException e)
+	{
+		out.println("ClassNotFoundException: " +e);
+	}
+	
 	// Preparing SQL Connection:
 	String url = "jdbc:mysql://173.194.107.58/MicCheck";
 	String uid = "Ncookie";

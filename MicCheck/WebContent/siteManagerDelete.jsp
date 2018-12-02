@@ -12,6 +12,15 @@
 
 	<%
 	
+	try
+	{	// Load driver class
+		Class.forName("com.mysql.jdbc.Driver");
+	}
+	catch (java.lang.ClassNotFoundException e)
+	{
+		out.println("ClassNotFoundException: " +e);
+	}
+	
 	// Finding and deleting appropriate item:
 	String pid = request.getParameter("pid");
 	String url = "jdbc:mysql://173.194.107.58/MicCheck";

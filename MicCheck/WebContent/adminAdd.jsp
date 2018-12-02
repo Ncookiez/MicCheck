@@ -16,7 +16,16 @@
 </head>
 <body>
 
-	<% String sid = request.getParameter("sid"); %>
+	<% String sid = request.getParameter("sid"); 
+	try
+	{	// Load driver class
+		Class.forName("com.mysql.jdbc.Driver");
+	}
+	catch (java.lang.ClassNotFoundException e)
+	{
+		out.println("ClassNotFoundException: " +e);
+	}
+	%>
 	
 	<!-- Navbar -->
 	<nav class="navbar navbar-default navbar-fixed-top">

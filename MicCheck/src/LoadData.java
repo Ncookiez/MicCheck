@@ -13,7 +13,14 @@ public class LoadData {
 	
 	// Method to load data into the database:
 	public static void loadData() throws Exception {
-		
+		try
+		{	// Load driver class
+			Class.forName("com.mysql.jdbc.Driver");
+		}
+		catch (java.lang.ClassNotFoundException e)
+		{
+			e.printStackTrace();
+		}
 		// Creating connection to database:
 		String url = "jdbc:mysql://173.194.107.58/MicCheck";
 		String uid = "Ncookie";

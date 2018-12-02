@@ -12,6 +12,15 @@ public class loadTrie {
 	public static void main(String[] args) throws Exception {
 		Trie trie = new Trie();
 		
+		try
+		{	// Load driver class
+			Class.forName("com.mysql.jdbc.Driver");
+		}
+		catch (java.lang.ClassNotFoundException e)
+		{
+			e.printStackTrace();
+		}
+		
 		// Creating connection to database:
 		String url = "jdbc:mysql://173.194.107.58/MicCheck";
 		String uid = "Ncookie";

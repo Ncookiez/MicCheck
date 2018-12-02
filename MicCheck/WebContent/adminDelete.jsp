@@ -11,7 +11,14 @@
 <body>
 
 	<%
-	
+	try
+	{	// Load driver class
+		Class.forName("com.mysql.jdbc.Driver");
+	}
+	catch (java.lang.ClassNotFoundException e)
+	{
+		out.println("ClassNotFoundException: " +e);
+	}
 	// Finding and deleting appropriate item:
 	String pid = request.getParameter("pid");
 	String sid = request.getParameter("sid");

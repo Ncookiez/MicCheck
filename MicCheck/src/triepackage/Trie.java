@@ -83,6 +83,14 @@ public class Trie {
 	}
 	
 	public void addProduct(int pID) throws SQLException{
+		try
+		{	// Load driver class
+			Class.forName("com.mysql.jdbc.Driver");
+		}
+		catch (java.lang.ClassNotFoundException e)
+		{
+			e.printStackTrace();
+		}
 		// Creating connection to database:
 		String url = "jdbc:mysql://173.194.107.58/MicCheck";
 		String uid = "Ncookie";

@@ -51,6 +51,14 @@
 	
 	<%
 	String email = request.getParameter("email");
+	try
+	{	// Load driver class
+		Class.forName("com.mysql.jdbc.Driver");
+	}
+	catch (java.lang.ClassNotFoundException e)
+	{
+		out.println("ClassNotFoundException: " +e);
+	}
 	%>
 	<nav class="navbar navbar-default navbar-fixed-top">
 		<div class="container-fluid">
@@ -176,7 +184,7 @@
 			try (Connection con = DriverManager.getConnection(url, uid, pw);) {
 				NumberFormat currFormat = NumberFormat.getCurrencyInstance();
 				//Dynamic suggestions:
-				PreparedStatement pstmt = con.prepareStatement("SELECT TOP 4 Instrument.pID, title, price FROM Instrument, (SELECT pID, COUNT(pID) AS numProd FROM PurchasedProduct GROUP BY pID) AS Popular WHERE Instrument.pID=Popular.pID ORDER BY numProd DESC");
+				PreparedStatement pstmt = con.prepareStatement("SELECT Instrument.pID, title, price FROM Instrument, (SELECT pID, COUNT(pID) AS numProd FROM PurchasedProduct GROUP BY pID) AS Popular WHERE Instrument.pID=Popular.pID ORDER BY numProd DESC LIMIT 4");
 				ResultSet rst = pstmt.executeQuery();
 				
 				out.println("<br><h3>Popular products</h3>");

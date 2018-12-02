@@ -171,7 +171,7 @@
 	
 	try
 	{	// Load driver class
-		Class.forName("com.microsoft.sqlserver.jdbc.SQLServerDriver");
+		Class.forName("com.mysql.jdbc.Driver");
 	}
 	catch (java.lang.ClassNotFoundException e)
 	{
@@ -245,7 +245,7 @@
 		}
 		
 		//Dynamic suggestions:
-		pstmt = con.prepareStatement("SELECT TOP 4 Instrument.pID, title, price FROM Instrument, (SELECT pID, COUNT(pID) AS numProd FROM PurchasedProduct GROUP BY pID) AS Popular WHERE Instrument.pID=Popular.pID ORDER BY numProd DESC");
+		pstmt = con.prepareStatement("SELECT Instrument.pID, title, price FROM Instrument, (SELECT pID, COUNT(pID) AS numProd FROM PurchasedProduct GROUP BY pID) AS Popular WHERE Instrument.pID=Popular.pID ORDER BY numProd DESC LIMIT 4");
 		rst = pstmt.executeQuery();
 		
 		out.println("<br><h3>Popular products</h3>");

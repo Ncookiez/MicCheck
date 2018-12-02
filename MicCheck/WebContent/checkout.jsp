@@ -18,6 +18,14 @@
 <body>
 	<%
 	String email = request.getParameter("email");
+	try
+	{	// Load driver class
+		Class.forName("com.mysql.jdbc.Driver");
+	}
+	catch (java.lang.ClassNotFoundException e)
+	{
+		out.println("ClassNotFoundException: " +e);
+	}
 	%>
 	<nav class="navbar navbar-default navbar-fixed-top">
 	  <div class="container-fluid">

@@ -106,7 +106,7 @@ out.println("<a href=\"item.jsp?pID="+productID+"\">Go to item page: </a>");
 
 try
 {	// Load driver class
-	Class.forName("com.microsoft.sqlserver.jdbc.SQLServerDriver");
+	Class.forName("com.mysql.jdbc.Driver");
 }
 catch (java.lang.ClassNotFoundException e)
 {
