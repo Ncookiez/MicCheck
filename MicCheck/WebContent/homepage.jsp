@@ -9,6 +9,43 @@
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
 	<link rel="stylesheet" type="text/css" href="MicCheck.css">
 	<link href="https://fonts.googleapis.com/css?family=Cairo|Lobster" rel="stylesheet">
+	<style>
+		img {
+			max-height: 100%;
+			max-width: 100%;
+			vertical-align: middle;
+		}
+		
+		.wholeLink {
+			cursor: pointer;
+			width: 250px;
+		}
+		
+		.subGroup {
+			width: 100%;
+			background-color: #75472d;
+			color: white;
+			padding: 15px;
+		}
+		
+		.imageBack {
+			height: 175px;
+			width: 250px;
+			background-color: #414141;
+			background-size: cover;
+			border: 1px solid #021a40;
+			text-align: center;
+			white-space: nowrap;
+		}
+		
+		.imageBack:before,
+		.imageBack_before {
+		    content: "";
+		    display: inline-block;
+		    height: 100%;
+		    vertical-align: middle;
+		}
+	</style>
 </head>
 <body>
 	
@@ -142,6 +179,34 @@
 				</div>
 			</a>
 		</div>
+		<%
+			try (Connection con = DriverManager.getConnection(url, uid, pw);) {
+				NumberFormat currFormat = NumberFormat.getCurrencyInstance();
+				//Dynamic suggestions:
+				PreparedStatement pstmt = con.prepareStatement("SELECT TOP 4 Instrument.pID, title, price FROM Instrument, (SELECT pID, COUNT(pID) AS numProd FROM PurchasedProduct GROUP BY pID) AS Popular WHERE Instrument.pID=Popular.pID ORDER BY numProd DESC");
+				ResultSet rst = pstmt.executeQuery();
+				
+				out.println("<br><h3>Popular products</h3>");
+				out.println("<div class='subGroup'><div class='row'>");
+				while(rst.next()){
+					int pid = rst.getInt(1);
+					String title = rst.getString(2);
+					float price = rst.getFloat(3);
+					String link = "location.href='item.jsp?pID="+pid+"&email="+email+"'";
+					String imgName = "Images/instrument"+pid+".jpg";
+					String image = "<div class='imageBack'><img src='"+imgName+"'/></div>";
+					
+					out.println("<div class='col-xs-6 col-md-3'><div class='wholeLink' onclick="+link+">");
+					out.println(image);
+					out.println(title);
+					out.println("<br><strong>"+currFormat.format(price)+"</strong>");
+					out.println("</div></div>");
+				}
+				out.println("</div></div><br><br>");
+			} catch(Exception e) {
+				e.printStackTrace();
+			}
+		%>
 	</div>
 	
 <script src="http://code.jquery.com/jquery-3.3.1.js"></script>
