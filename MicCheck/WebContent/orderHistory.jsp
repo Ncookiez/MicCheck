@@ -76,6 +76,7 @@
 					String url = "jdbc:sqlserver://sql04.ok.ubc.ca:1433;DatabaseName=db_ncukiert;";
 					String uid = "ncukiert";
 					String pw = "41776162";
+					String name = null;
 					
 					try {	// Load driver class
 						Class.forName("com.microsoft.sqlserver.jdbc.SQLServerDriver");
@@ -90,7 +91,8 @@
 						prpStmt.setString(1, email);
 						ResultSet rstl = prpStmt.executeQuery();
 						while(rstl.next()) {
-							out.println("<li><a href='useraccount.jsp?email=" + email + "'><span class='glyphicon glyphicon-user' aria-hidden='true'></span> " + rstl.getString(1) + "</a></li>");
+							name = rstl.getString(1);
+							out.println("<li><a href='useraccount.jsp?email=" + email + "'><span class='glyphicon glyphicon-user' aria-hidden='true'></span> " + name + "</a></li>");
 						}
 					} catch(Exception e) {
 						e.printStackTrace();
@@ -100,42 +102,60 @@
 			</div><!-- /.navbar-collapse -->
 		</div><!-- /.container-fluid -->
 	</nav>
-	<%
-	if(email == null || email.equals("null")) {
-		%> <h1 style="padding-top:50px;">No email provided</h1> <%
-	} else {
-		int orderNum = 0;
-		url = "jdbc:sqlserver://sql04.ok.ubc.ca:1433;DatabaseName=db_ncukiert;";
-		uid = "ncukiert";
-		pw = "41776162";
-		NumberFormat currFormat = NumberFormat.getCurrencyInstance();
-		try {	// Load driver class
-			Class.forName("com.microsoft.sqlserver.jdbc.SQLServerDriver");
-		}
-		catch (java.lang.ClassNotFoundException e) {
-			out.println("ClassNotFoundException: " +e);
-		}
-		
-		try (Connection con = DriverManager.getConnection(url, uid, pw);) {
-			String SQL = "SELECT Purchase.orderNum, totalPrice, title FROM Purchase, PurchasedProduct, Instrument WHERE Purchase.orderNum = PurchasedProduct.orderNum AND Instrument.pID = PurchasedProduct.pID AND email=?";
-			PreparedStatement prpStmt = con.prepareStatement(SQL);
-			prpStmt.setString(1, email);
-			ResultSet rstl = prpStmt.executeQuery();
-			
-			if(!rstl.next()) {
-				out.println("<h1 style='padding-top:50px'>You have no previous orders with us</h1>");
-			} else {
-				out.println("<h1 style='padding-top:50px;'>Your purchases are: </h1>");
-				do {
-					out.println("<h4>Order number is: " + rstl.getInt(1) + "</h4><h4>Price of order is: " + currFormat.format(rstl.getDouble(2)) + "</h4><h4>Product purchased is: " + rstl.getString(3) + "</h4>");
-				} while(rstl.next());
-			}
-			
-		} catch(Exception e) {
-			e.printStackTrace();
-		}
-	}
-	%>
+	
+	<div class="container" style="padding-top:70px; font-family: 'Cairo', sans-serif;">
+		<div class="row">
+			<div class="col-md-1"></div>
+			<div class="col-md-10">
+				<% out.println("<h1>" + name +"</h1>"); %>
+				<hr>
+				<div class="panel panel-default">
+					<div class="panel-heading">
+						<%
+						if(email == null || email.equals("null")) {
+							%> <h1>No email provided</h1></div> <%
+						} else {
+							int orderNum = 0;
+							url = "jdbc:sqlserver://sql04.ok.ubc.ca:1433;DatabaseName=db_ncukiert;";
+							uid = "ncukiert";
+							pw = "41776162";
+							NumberFormat currFormat = NumberFormat.getCurrencyInstance();
+							try {	// Load driver class
+								Class.forName("com.microsoft.sqlserver.jdbc.SQLServerDriver");
+							}
+							catch (java.lang.ClassNotFoundException e) {
+								out.println("ClassNotFoundException: " +e);
+							}
+							
+							try (Connection con = DriverManager.getConnection(url, uid, pw);) {
+								String SQL = "SELECT Purchase.orderNum, totalPrice, title, expectedTime FROM Purchase, PurchasedProduct, Instrument WHERE Purchase.orderNum = PurchasedProduct.orderNum AND Instrument.pID = PurchasedProduct.pID AND email=?";
+								PreparedStatement prpStmt = con.prepareStatement(SQL);
+								prpStmt.setString(1, email);
+								ResultSet rstl = prpStmt.executeQuery();
+								
+								if(!rstl.next()) {
+									out.println("<h1>You have no previous orders with us</h1></div>");
+								} else {
+									out.println("<h1>Previous purchases: </h1></div>");
+									out.println("<table class='table'><th style='min-width;150px;'>Order Number</th><th>Price of order</th><th>Product purchased</th><th>Estimated shipping date</th>");
+									do {
+										out.println("<tr><td>" + rstl.getInt(1) + "</td><td>" + currFormat.format(rstl.getDouble(2)) + "</td><td>" + rstl.getString(3) + "</td><td>" + rstl.getString(4) + "</td></tr>");
+									} while(rstl.next());
+								}
+								
+							} catch(Exception e) {
+								e.printStackTrace();
+							}
+						}
+						%>
+					</table>
+				</div>
+			</div>
+		</div>
+	</div>
+	
+	<script src="http://code.jquery.com/jquery-3.3.1.js"></script>
+	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>	
 	
 </body>
 </html>

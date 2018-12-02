@@ -159,10 +159,10 @@
 			<div class="col-md-5">
 				<div class="column thumbnail thumbnail-user"></div>
 				<br>
-				<% out.print("<a class='button' href='editinfo.jsp?email=" + email + "'>Edit Information</a>"); %>
+				<% out.println("<a href='editinfo.jsp?email=" + email + "'>Edit Information</a>"); %>
 			</div>
 			<div class="col-md-5 user-text">
-				<%out.println("<h1>" + name + "</h1>"); %>
+				<%out.println("<a href='useraccount.jsp?email=" + email + "' style='color:black;'><h1>" + name + "</h1></a>"); %>
 				<hr>
 				<br>
 				<div class="panel panel-default">

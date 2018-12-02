@@ -18,15 +18,16 @@
 		.text {
 			font-family: 'Cairo', sans-serif;
 		}
+		.edit-user-input {
+			padding-bottom: 15px;
+		}
 	</style>
-	
 	<title>Edit Information</title>
 </head>
 <body>
 	<%
 	String email = null; 
 	email = request.getParameter("email");
-	String name = null;
 	String sStreet = null;
 	String sCity = null;
 	String sProvince = null;
@@ -94,6 +95,7 @@
 			String url = "jdbc:sqlserver://sql04.ok.ubc.ca:1433;DatabaseName=db_ncukiert;";
 			String uid = "ncukiert";
 			String pw = "41776162";
+			String name = null;
 			
 			try {	// Load driver class
 				Class.forName("com.microsoft.sqlserver.jdbc.SQLServerDriver");
@@ -108,7 +110,8 @@
 				prpStmt.setString(1, email);
 				ResultSet rstl = prpStmt.executeQuery();
 				while(rstl.next()) {
-					out.println("<li><a href='useraccount.jsp?email=" + email + "'><span class='glyphicon glyphicon-user' aria-hidden='true'></span> " + rstl.getString(1) + "</a></li>");
+					name = rstl.getString(1);
+					out.println("<li><a href='useraccount.jsp?email=" + email + "'><span class='glyphicon glyphicon-user' aria-hidden='true'></span> " + name + "</a></li>");
 				}
 			} catch(Exception e) {
 				e.printStackTrace();
@@ -132,18 +135,17 @@
 		out.println("ClassNotFoundException: " +e);
 	}
 	try(Connection con = DriverManager.getConnection(url, uid, pw);) {
-		String SQL = "SELECT name, shipStreet, shipCity, shipProvince, billingStreet, billingCity, billingProvince FROM Customers WHERE email = ?";
+		String SQL = "SELECT shipStreet, shipCity, shipProvince, billingStreet, billingCity, billingProvince FROM Customers WHERE email = ?";
 		PreparedStatement prpStmt = con.prepareStatement(SQL);
 		prpStmt.setString(1, email);
 		ResultSet rstl = prpStmt.executeQuery();
 		rstl.next();
-		name = rstl.getString(1);
-		sStreet = rstl.getString(2);
-		sCity = rstl.getString(3);
-		sProvince = rstl.getString(4);
-		bStreet = rstl.getString(5);
-		bCity = rstl.getString(6);
-		bProvince = rstl.getString(7);
+		sStreet = rstl.getString(1);
+		sCity = rstl.getString(2);
+		sProvince = rstl.getString(3);
+		bStreet = rstl.getString(4);
+		bCity = rstl.getString(5);
+		bProvince = rstl.getString(6);
 	} catch(Exception e) {
 		e.printStackTrace();
 	} 
@@ -153,33 +155,40 @@
 		<div class="row">
 			<div class="col-md-4"></div>
 			<div class="col-md-4 text-center box text">
-				<h3>Customer Information</h3>
+				<h2>Customer Information</h2>
+				<hr>
 				<%out.print("<a href='useraccount.jsp?email=" + email +"'>Return to account page</a>"); %>
 				<br>
 				<form action="editinfo.jsp" method="get"  style="padding-bottom:50px;"> 
 			  		<div class="form-group size labelAlign">
 			  			<h3>Shipping Address:</h3> 
-			  			<div>
+			  			<div class="edit-user-input">
 			  				<label for="sStreetInput">Street: </label>
 			    			<input type="text" class="form-control" id="sStreetAltered" name="sStreetAltered" required <%out.print("value='" + sStreet + "'"); %>>
 			  			</div>
-			  			<div>
+			  			<div class="edit-user-input">
 			  				<label for="sCityInput">City: </label>
 			    			<input type="text" class="form-control" id="sCityAltered" name="sCityAltered" required <%out.print("value='" + sCity + "'"); %>>
 			  			</div>
-			    		<div>
+			    		<div class="edit-user-input">
 			    			<label for="sProvInput">Province: </label>
 			    			<input type="text" class="form-control" id="sProvAltered" name="sProvAltered" required <%out.print("value='" + sProvince + "'"); %>>
 			    		</div>
 			  		</div>
 			  		<div class="form-group size labelAlign">
 			  			<h3>Billing Address:</h3> 
-			    		<label for="bStreetInput">Street: </label>
-			    		<input type="text" class="form-control" id="bStreetAltered" name="bStreetAltered" required <%out.print("value='" + bStreet + "'"); %>>
-			    		<label for="bCityInput">City: </label>
-			    		<input type="text" class="form-control" id="bCityAltered" name="bCityAltered" required <%out.print("value='" + bCity + "'"); %>>
-			    		<label for="bProvInput">Province: </label>
-			    		<input type="text" class="form-control" id="bProvAltered" name="bProvAltered" required <%out.print("value='" + bProvince + "'"); %>>
+			  			<div class="edit-user-input">
+			  				<label for="bStreetInput">Street: </label>
+			    			<input type="text" class="form-control" id="bStreetAltered" name="bStreetAltered" required <%out.print("value='" + bStreet + "'"); %>>
+			  			</div>
+			    		<div class="edit-user-input">
+			    			<label for="bCityInput">City: </label>
+			    			<input type="text" class="form-control" id="bCityAltered" name="bCityAltered" required <%out.print("value='" + bCity + "'"); %>>
+			    		</div>
+			    		<div class="edit-user-input">
+			    			<label for="bProvInput">Province: </label>
+			    			<input type="text" class="form-control" id="bProvAltered" name="bProvAltered" required <%out.print("value='" + bProvince + "'"); %>>
+			    		</div>
 			  		</div>
 			  		<input type="text" class="form-control" id="email" name="email" <%out.print("value='" + email + "'");%> style="display:none;">
 			  		<button type="submit" class="btn btn-primary">Submit</button>

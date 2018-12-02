@@ -40,18 +40,18 @@
 	          <a class="dropdown-toggle instruments-dropdown dropbtn" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Instruments <span class="caret"></span></a>
 	          <ul class="dropdown-menu">
 	          	<%
-	          	out.print("<li><a href='results.jsp?search=Guitar&email= " + email + "' >Guitar</a></li>");
-	    		out.print("<li><a href='results.jsp?search=Bass&email= " + email + "' >Bass</a></li>");
-	    		out.print("<li><a href='results.jsp?search=Keyboard&email= " + email + "' >Keyboard</a></li>");
-	    		out.print("<li><a href='results.jsp?search=Percussion&email= " + email + "' >Percussion</a></li>");
+	          	out.print("<li><a href='results.jsp?search=Guitar&email=" + email + "' >Guitar</a></li>");
+	    		out.print("<li><a href='results.jsp?search=Bass&email=" + email + "' >Bass</a></li>");
+	    		out.print("<li><a href='results.jsp?search=Keyboard&email=" + email + "' >Keyboard</a></li>");
+	    		out.print("<li><a href='results.jsp?search=Percussion&email=" + email + "' >Percussion</a></li>");
 	          	%>
 	            <li class="dropdown-submenu">
 	            	<a>Orchestral</a>
 	            	<ul class="dropdown-menu">
 	            		<%
-	            		out.print("<li><a href='results.jsp?search=Brass&email= " + email + "' >Brass</a></li>");
-	            		out.print("<li><a href='results.jsp?search=Strings&email= " + email + "' >Strings</a></li>");
-	            		out.print("<li><a href='results.jsp?search=Woodwind&email= " + email + "' >Woodwind</a></li>");
+	            		out.print("<li><a href='results.jsp?search=Brass&email=" + email + "' >Brass</a></li>");
+	            		out.print("<li><a href='results.jsp?search=Strings&email=" + email + "' >Strings</a></li>");
+	            		out.print("<li><a href='results.jsp?search=Woodwind&email=" + email + "' >Woodwind</a></li>");
 	            		%>
 	            	</ul>
 	            </li>
