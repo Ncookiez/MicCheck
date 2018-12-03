@@ -98,24 +98,26 @@ public class Trie {
 		Connection con = DriverManager.getConnection(url, uid, pw);
 		
 		try{
-			String sql = "SELECT title, category, cond, brand, year, tags FROM Instrument WHERE pID = ?";
+			String sql = "SELECT title, category, cond, brand, year, tags, description FROM Instrument WHERE pID = ?";
 			PreparedStatement pstmt = con.prepareStatement(sql);
 			pstmt.setInt(1, pID);
 			ResultSet rst = pstmt.executeQuery();
 			while(rst.next()){
-				String[] title = this.strip(rst.getString(2)).split(" ");
-				String[] cat = this.strip(rst.getString(3)).split(" ");
-				String[] brand = this.strip(rst.getString(5)).split(" ");
-				String[] tags = this.strip(rst.getString(7)).split(" ");
+				String[] title = this.strip(rst.getString(1)).split(" ");
+				String[] cat = this.strip(rst.getString(2)).split(" ");
+				String[] brand = this.strip(rst.getString(4)).split(" ");
+				String[] tags = this.strip(rst.getString(6)).split(" ");
+				String[] desc = this.strip(rst.getString(7)).split(" ");
 				
 				for(String str : title) this.add(str, pID);
 				for(String str : cat) this.add(str, pID);
 				for(String str : brand) this.add(str, pID);
 				for(String str : tags) this.add(str, pID);
+				for(String str : desc) this.add(str, pID);
 				
-				int cond = rst.getInt(4);
+				int cond = rst.getInt(3);
 				this.add((cond == 1 ? "new" : "used"), pID);
-				int year = rst.getInt(6);
+				int year = rst.getInt(5);
 				this.add(""+year, pID);
 			}
 		}catch(Exception e){
