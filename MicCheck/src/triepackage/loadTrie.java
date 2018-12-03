@@ -34,18 +34,20 @@ public class loadTrie {
 		ResultSet rst;
 		
 		try{
-			rst = stmnt.executeQuery("SELECT pID, title, category, cond, brand, year, tags FROM Instrument");
+			rst = stmnt.executeQuery("SELECT pID, title, category, cond, brand, year, tags, description FROM Instrument");
 			while(rst.next()){
 				int pID = rst.getInt(1);
 				String[] title = strip(rst.getString(2)).split(" ");
 				String[] cat = strip(rst.getString(3)).split(" ");
 				String[] brand = strip(rst.getString(5)).split(" ");
 				String[] tags = strip(rst.getString(7)).split(" ");
+				String[] desc = strip(rst.getString(8)).split(" ");
 				
 				for(String str : title) trie.add(str, pID);
 				for(String str : cat) trie.add(str, pID);
 				for(String str : brand) trie.add(str, pID);
 				for(String str : tags) trie.add(str, pID);
+				for(String str : desc) trie.add(str, pID);
 				
 				int cond = rst.getInt(4);
 				trie.add((cond == 1 ? "new" : "used"), pID);

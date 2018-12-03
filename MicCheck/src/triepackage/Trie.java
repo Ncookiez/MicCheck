@@ -135,7 +135,7 @@ public class Trie {
 	
 	public int[] search(String str) {
 		if(str==null || str.length() == 0) return null;
-		str = str.toLowerCase();
+		str = this.strip(str).toLowerCase();
 		String[] word = str.split(" ");
 		HashMap<Integer, Integer> idCount = new HashMap<Integer, Integer>();
 		ArrayList<Integer> ids = new ArrayList<Integer>();
