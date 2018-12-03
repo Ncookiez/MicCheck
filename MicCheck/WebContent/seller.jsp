@@ -12,7 +12,7 @@
 	<title>Seller Page</title>
 	
 </head>
-<body>
+<body class="background">
 
 	<%
 	String seller = request.getParameter("sID");

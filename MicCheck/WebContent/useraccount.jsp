@@ -11,7 +11,7 @@
 	<title>User Account Page</title>
 	
 </head>
-<body>
+<body class="background">
 	<%
 	String email = null; 
 	email = request.getParameter("email");

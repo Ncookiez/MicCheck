@@ -24,7 +24,7 @@
 	</style>
 	<title>Edit Information</title>
 </head>
-<body>
+<body  class="background">
 	<%
 	String email = null; 
 	email = request.getParameter("email");

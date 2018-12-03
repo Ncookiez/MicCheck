@@ -23,7 +23,7 @@
 	</script>
 	
 </head>
-<body>
+<body class="background">
 
 	<!-- SignUp Box -->
 	<div class="container margin">

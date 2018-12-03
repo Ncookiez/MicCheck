@@ -8,7 +8,7 @@
 	<meta charset="ISO-8859-1">
 	<title>Admin - Item Deleting</title>
 </head>
-<body>
+<body class="background">
 
 	<%
 	

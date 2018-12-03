@@ -13,7 +13,7 @@
 	<link href="https://fonts.googleapis.com/css?family=Cairo|Lobster" rel="stylesheet">
 	
 </head>
-<body>
+<body  class="background">
 
 	<% String sid = request.getParameter("sid"); %>
 	

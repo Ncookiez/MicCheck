@@ -14,7 +14,7 @@
 	<link href="https://fonts.googleapis.com/css?family=Cairo|Lobster" rel="stylesheet">
 	
 </head>
-<body>
+<body class="background">
 	
 	<!-- Navbar -->
 	<nav class="navbar navbar-default navbar-fixed-top">

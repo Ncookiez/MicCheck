@@ -11,7 +11,7 @@
 	<link href="https://fonts.googleapis.com/css?family=Cairo|Lobster" rel="stylesheet">
 	<title>Purchase History</title>
 </head>
-<body>
+<body  class="background">
 	
 	<%
 	String email = request.getParameter("email");

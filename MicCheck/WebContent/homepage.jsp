@@ -47,7 +47,7 @@
 		}
 	</style>
 </head>
-<body>
+<body class="background">
 	
 	<%
 	String email = request.getParameter("email");

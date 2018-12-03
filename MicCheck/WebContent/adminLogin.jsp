@@ -16,7 +16,7 @@
 	</script>
 	
 </head>
-<body>
+<body  class="background">
 	
 	<!-- Login Box -->
 	<div class="container margin">
