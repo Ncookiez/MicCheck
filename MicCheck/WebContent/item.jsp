@@ -2,6 +2,7 @@
 <%@ page import="java.text.NumberFormat" %>
 <%@ page import="java.util.HashMap" %>
 <%@ page import="java.util.ArrayList" %>
+<%@ page import="triepackage.Trie" %>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
@@ -53,6 +54,18 @@
 		    display: inline-block;
 		    height: 100%;
 		    vertical-align: middle;
+		}
+		
+		.wholeLink {
+			cursor: pointer;
+			width: 250px;
+		}
+		
+		.subGroup {
+			width: 100%;
+			background-color: #75472d;
+			color: white;
+			padding: 15px;
 		}
 		
 		.textBack {
@@ -238,7 +251,8 @@
 			
 			out.println("<table><th><h4>Brand</h4></th><th><h4>Condition</h4></th><th><h4>Year</h4></th><th><h4>Category</h4></th><tr>");
 			out.println("<td>"+brand+"</td>");
-			out.println("<td>"+(condition==1 ? "New" : "Used")+"</td>");
+			String cond = (condition==1 ? "New" : "Used");
+			out.println("<td>"+cond+"</td>");
 			out.println("<td>"+year+"</td>");
 			out.println("<td>"+category+"</td>");
 			out.println("</tr></table><br/>");
@@ -251,7 +265,7 @@
 			out.println("<br/><button type='button' class='btn btn-default search-btn' onclick='location.href=\"shoppingcart.jsp?pID="+pID+"&email="+email+"&addingToCart=1\"'>Add to Cart</button>");
 			out.println("<button type='button' class='btn btn-default search-btn' onclick='location.href=\"shoppingcart.jsp?pID="+pID+"&email="+email+"&addingToCart=0\"'>View Cart</button>");
 			
-			out.println("</div></div></div>");
+			out.println("</div></div>");
 			
 			// Store product information in an ArrayList
 			ArrayList<Object> currentProduct = new ArrayList<Object>();
@@ -262,6 +276,70 @@
 			
 			session.setAttribute("currentProduct", currentProduct);
 			
+			//Show suggested items:
+			String search = title+" "+brand+" "+description+" "+cond+" "+year+" "+(tags!=null? tags : "");
+			int[] pIDs = new Trie(application.getRealPath("/") + "searchTrie.xml").search(search);//Search all products for most matching words
+			
+			String similarSQL = "";
+			PreparedStatement similar = con.prepareStatement(similarSQL);
+			ResultSet similarRst = null;
+			
+			//remove this instrument from list
+			int currentPid = 0;
+			int[] altPids = new int[pIDs.length-1];
+			boolean useAlt = false;
+			try{currentPid = Integer.parseInt(pID);}catch(Exception e){e.printStackTrace();}
+			for(int i = 0; i < pIDs.length-1; i++){
+				if(pIDs[i] == currentPid){//ignore matching pids
+					useAlt = true;
+				}else{
+					altPids[i - (useAlt? 1:0)] = pIDs[i];
+				}
+			}
+			if(pIDs[pIDs.length-1] == currentPid) useAlt = true;
+			if(useAlt) pIDs = altPids;
+			
+			//Prepare query
+			if(pIDs != null){
+				if(pIDs.length > 0){
+					int max = 4;
+					if(pIDs.length < max) max = pIDs.length;
+					//prepare the statement to search for the pids
+					String pidStr = "";
+					for(int i = 0; i < max; i++){
+						if(i!=0) pidStr+=",";
+						pidStr+="?";
+					}
+					String sql = "SELECT pID, title, price FROM Instrument WHERE pID IN (" + pidStr + ")";
+					similar = con.prepareStatement(sql);
+					
+					for(int i = 0; i < max; i++){
+						similar.setInt(i+1, pIDs[i]);
+					}
+					similarRst = similar.executeQuery();
+				}
+			}else{
+				similar = con.prepareStatement("SELECT pID, title, price FROM Instrument ORDER BY title ASC LIMIT 4;");
+				similarRst = similar.executeQuery();
+			}
+			
+			out.println("<br><h3>You might also like...</h3>");
+			out.println("<div class='subGroup'><div class='row'>");
+			while(similarRst.next()){
+				int pid = similarRst.getInt(1);
+				String title2 = similarRst.getString(2);
+				float price2 = similarRst.getFloat(3);
+				String link = "location.href='item.jsp?pID="+pid+"&email="+email+"'";
+				String imgName2 = "Images/instrument"+pid+".jpg";
+				String image = "<div class='imageBack'><img src='"+imgName2+"'/></div>";
+				
+				out.println("<div class='col-xs-6 col-md-3'><div class='wholeLink' onclick="+link+">");
+				out.println(image);
+				out.println(title2);
+				out.println("<br><strong>"+currFormat.format(price2)+"</strong>");
+				out.println("</div></div>");
+			}
+			out.println("</div></div><br><br>");
 		}
 		
 		
